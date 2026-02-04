@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeeWhy LIVE Design System - Component Showcase</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Lora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+
+  <style>
+    .showcase-section {
+      padding: var(--space-12) 0;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .showcase-section:last-child {
+      border-bottom: none;
+    }
+
+    .section-title {
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-4);
+      border-bottom: 3px solid var(--terracotta);
+      display: inline-block;
+    }
+
+    .component-grid {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .component-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      align-items: center;
+    }
+
+    .color-swatch {
+      width: 120px;
+      height: 80px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-2);
+      box-shadow: var(--shadow-md);
+    }
+
+    .color-swatch span {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      background: rgba(255, 255, 255, 0.9);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      color: var(--charcoal);
+    }
+
+    .type-sample {
+      margin-bottom: var(--space-4);
+    }
+
+    .spacing-demo {
+      background: var(--terracotta);
+      height: 20px;
+      border-radius: var(--radius-sm);
+    }
+
+    .nav-showcase {
+      background: var(--white);
+      padding: var(--space-4);
+      border-radius: var(--radius-xl);
+      margin-bottom: var(--space-6);
+    }
+  </style>
+</head>
+<body class="bg-cream">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#" class="navbar__logo">SeeWhy LIVE</a>
+      <div class="navbar__nav">
+        <a href="index.html" class="nav-link active">Components</a>
+        <a href="landing.html" class="nav-link">Landing</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="#" class="btn btn-primary btn-sm">Go Live</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-12">
+    <!-- Header -->
+    <header class="text-center mb-16 animate animate-fade-in-up">
+      <h1 class="mb-4">SeeWhy LIVE Design System</h1>
+      <p class="body-lg text-clay max-w-prose mx-auto">
+        A warm, creator-friendly design system featuring earth tones, organic shapes,
+        and inviting aesthetics. Built for the world's first live streaming platform
+        with Guest Destinations.
+      </p>
+    </header>
+
+    <!-- Colors Section -->
+    <section class="showcase-section" id="colors">
+      <h2 class="section-title">Colors</h2>
+
+      <h4 class="mb-4">Brand Colors</h4>
+      <div class="component-row mb-8">
+        <div class="color-swatch bg-terracotta">
+          <span>#CC7755</span>
+        </div>
+        <div class="color-swatch bg-burgundy">
+          <span>#800020</span>
+        </div>
+        <div class="color-swatch bg-gold">
+          <span>#FFD700</span>
+        </div>
+        <div class="color-swatch" style="background: var(--cream); border: 1px solid var(--sand);">
+          <span>#F5F5DC</span>
+        </div>
+      </div>
+
+      <h4 class="mb-4">Neutrals</h4>
+      <div class="component-row mb-8">
+        <div class="color-swatch bg-sand">
+          <span>#E5D4C1</span>
+        </div>
+        <div class="color-swatch bg-clay">
+          <span>#9E8B7E</span>
+        </div>
+        <div class="color-swatch bg-earth-brown">
+          <span>#6B5445</span>
+        </div>
+        <div class="color-swatch bg-charcoal">
+          <span>#2D2420</span>
+        </div>
+      </div>
+
+      <h4 class="mb-4">Functional Colors</h4>
+      <div class="component-row">
+        <div class="color-swatch bg-success">
+          <span>#7A9E5D</span>
+        </div>
+        <div class="color-swatch bg-warning">
+          <span>#D4874B</span>
+        </div>
+        <div class="color-swatch bg-error">
+          <span>#C24848</span>
+        </div>
+        <div class="color-swatch" style="background: var(--info);">
+          <span>#8B7355</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section class="showcase-section" id="typography">
+      <h2 class="section-title">Typography</h2>
+
+      <div class="component-grid">
+        <div class="type-sample">
+          <span class="text-label mb-2 block">Display / Headings - Playfair Display</span>
+          <h1>Heading 1 - The quick brown fox</h1>
+        </div>
+        <div class="type-sample">
+          <h2>Heading 2 - The quick brown fox</h2>
+        </div>
+        <div class="type-sample">
+          <h3>Heading 3 - The quick brown fox</h3>
+        </div>
+        <div class="type-sample">
+          <h4>Heading 4 - The quick brown fox</h4>
+        </div>
+        <div class="type-sample">
+          <h5>Heading 5 - The quick brown fox</h5>
+        </div>
+        <div class="type-sample">
+          <h6>Heading 6 - The quick brown fox</h6>
+        </div>
+
+        <hr>
+
+        <div class="type-sample">
+          <span class="text-label mb-2 block">Body - Lora</span>
+          <p class="body-lg">Body Large - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+        </div>
+        <div class="type-sample">
+          <p>Body Regular - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div class="type-sample">
+          <p class="body-sm">Body Small - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+
+        <hr>
+
+        <div class="type-sample">
+          <span class="text-label mb-2 block">Special Styles</span>
+          <p class="text-premium text-2xl">Premium Text Style</p>
+        </div>
+        <div class="type-sample">
+          <p class="text-earnings text-4xl">$2,405.75</p>
+        </div>
+        <div class="type-sample">
+          <span class="text-overline">Overline Text</span>
+        </div>
+        <div class="type-sample">
+          <code>Monospace Code Text</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buttons Section -->
+    <section class="showcase-section" id="buttons">
+      <h2 class="section-title">Buttons</h2>
+
+      <div class="component-grid">
+        <div>
+          <span class="text-label mb-4 block">Primary Buttons</span>
+          <div class="component-row">
+            <button class="btn btn-primary btn-sm">Small</button>
+            <button class="btn btn-primary">Default</button>
+            <button class="btn btn-primary btn-lg">Large</button>
+            <button class="btn btn-primary" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-label mb-4 block">Secondary Buttons</span>
+          <div class="component-row">
+            <button class="btn btn-secondary btn-sm">Small</button>
+            <button class="btn btn-secondary">Default</button>
+            <button class="btn btn-secondary btn-lg">Large</button>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-label mb-4 block">Premium Button</span>
+          <div class="component-row">
+            <button class="btn btn-premium">Upgrade to Pro</button>
+            <button class="btn btn-premium btn-lg">Get Business Plan</button>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-label mb-4 block">Other Variants</span>
+          <div class="component-row">
+            <button class="btn btn-ghost">Ghost</button>
+            <button class="btn btn-success">Success</button>
+            <button class="btn btn-danger">Danger</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="showcase-section" id="cards">
+      <h2 class="section-title">Cards</h2>
+
+      <div class="grid grid-cols-3 gap-6">
+        <!-- Basic Card -->
+        <div class="card">
+          <h4 class="mb-3">Basic Card</h4>
+          <p class="body-sm text-clay">A simple card with padding, border radius, and subtle shadow. Lifts on hover.</p>
+        </div>
+
+        <!-- Stream Card -->
+        <div class="stream-card">
+          <div class="stream-card__thumbnail"></div>
+          <span class="badge-live">LIVE</span>
+          <span class="badge-viewers">1.2K viewers</span>
+          <div class="stream-card__info">
+            <h5 class="stream-card__title">Building AI-Powered Features</h5>
+            <p class="stream-card__meta">TechCreator - Started 45 min ago</p>
+          </div>
+        </div>
+
+        <!-- Stat Card -->
+        <div class="stat-card">
+          <div class="stat-value">12,847</div>
+          <div class="stat-label">Total Viewers</div>
+        </div>
+      </div>
+
+      <!-- Earnings Widget -->
+      <div class="mt-8" style="max-width: 400px;">
+        <span class="text-label mb-4 block">Earnings Widget</span>
+        <div class="earnings-widget">
+          <div class="earnings-amount shimmer">$2,405.75</div>
+          <div class="earnings-label">Available Balance</div>
+          <button class="btn mt-6" style="background: var(--gold); color: var(--burgundy); border-color: var(--gold-dark);">
+            Withdraw Funds
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badges Section -->
+    <section class="showcase-section" id="badges">
+      <h2 class="section-title">Badges</h2>
+
+      <div class="component-row">
+        <span class="badge badge-primary">Primary</span>
+        <span class="badge badge-secondary">Secondary</span>
+        <span class="badge badge-pro">PRO</span>
+        <span class="badge badge-success">Success</span>
+        <span class="badge badge-warning">Warning</span>
+        <span class="badge badge-error">Error</span>
+        <span class="badge-live" style="position: static;">LIVE</span>
+      </div>
+    </section>
+
+    <!-- Forms Section -->
+    <section class="showcase-section" id="forms">
+      <h2 class="section-title">Forms</h2>
+
+      <div class="grid grid-cols-2 gap-8" style="max-width: 800px;">
+        <div>
+          <div class="form-group">
+            <label class="label" for="input-default">Stream Title</label>
+            <input type="text" id="input-default" class="input" placeholder="Enter your stream title">
+          </div>
+
+          <div class="form-group">
+            <label class="label" for="input-error">Email (with error)</label>
+            <input type="email" id="input-error" class="input input-error" value="invalid-email">
+            <p class="helper-text helper-text-error">Please enter a valid email address</p>
+          </div>
+
+          <div class="form-group">
+            <label class="label" for="select">Category</label>
+            <select id="select" class="input select">
+              <option>Gaming</option>
+              <option>Music</option>
+              <option>Talk Shows</option>
+              <option>Education</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group">
+            <label class="label" for="textarea">Description</label>
+            <textarea id="textarea" class="input" placeholder="Tell viewers about your stream..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox">
+              <input type="checkbox" checked>
+              <span>Enable notifications</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <span class="text-label mb-3 block">Dark Mode</span>
+            <div class="toggle active" onclick="this.classList.toggle('active')">
+              <div class="toggle__thumb"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="showcase-section" id="navigation">
+      <h2 class="section-title">Navigation</h2>
+
+      <div class="nav-showcase">
+        <div class="flex items-center justify-between">
+          <span class="navbar__logo">SeeWhy LIVE</span>
+          <div class="flex gap-2">
+            <a href="#" class="nav-link active">Dashboard</a>
+            <a href="#" class="nav-link">Go Live</a>
+            <a href="#" class="nav-link">Wallet</a>
+            <a href="#" class="nav-link">Settings</a>
+          </div>
+          <div class="flex items-center gap-4">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=creator" alt="Avatar" class="avatar avatar-ring">
+            <button class="btn btn-primary btn-sm">Go Live</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Animations Section -->
+    <section class="showcase-section" id="animations">
+      <h2 class="section-title">Animations</h2>
+
+      <div class="component-row mb-8">
+        <div class="card animate animate-pulse-scale" style="width: 120px; text-align: center;">
+          <p class="text-sm">Pulse Scale</p>
+        </div>
+        <div class="card animate animate-float" style="width: 120px; text-align: center;">
+          <p class="text-sm">Float</p>
+        </div>
+        <div class="card animate animate-bounce" style="width: 120px; text-align: center;">
+          <p class="text-sm">Bounce</p>
+        </div>
+      </div>
+
+      <div class="component-row">
+        <button class="btn btn-secondary hover-lift">Hover Lift</button>
+        <button class="btn btn-secondary hover-scale">Hover Scale</button>
+        <button class="btn btn-secondary hover-glow">Hover Glow</button>
+      </div>
+    </section>
+
+    <!-- Spacing Section -->
+    <section class="showcase-section" id="spacing">
+      <h2 class="section-title">Spacing Scale</h2>
+
+      <div class="grid gap-3" style="max-width: 400px;">
+        <div class="flex items-center gap-4">
+          <span class="text-mono text-sm" style="width: 80px;">--space-1</span>
+          <div class="spacing-demo" style="width: var(--space-1);"></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-mono text-sm" style="width: 80px;">--space-2</span>
+          <div class="spacing-demo" style="width: var(--space-2);"></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-mono text-sm" style="width: 80px;">--space-4</span>
+          <div class="spacing-demo" style="width: var(--space-4);"></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-mono text-sm" style="width: 80px;">--space-6</span>
+          <div class="spacing-demo" style="width: var(--space-6);"></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-mono text-sm" style="width: 80px;">--space-8</span>
+          <div class="spacing-demo" style="width: var(--space-8);"></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-mono text-sm" style="width: 80px;">--space-12</span>
+          <div class="spacing-demo" style="width: var(--space-12);"></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-mono text-sm" style="width: 80px;">--space-16</span>
+          <div class="spacing-demo" style="width: var(--space-16);"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-charcoal text-cream py-12">
+    <div class="container text-center">
+      <p class="text-premium text-gold mb-2">SeeWhy LIVE</p>
+      <p class="body-sm opacity-75">Built with love for creators who deserve 90% of their earnings.</p>
+    </div>
+  </footer>
+</body>
+</html>
