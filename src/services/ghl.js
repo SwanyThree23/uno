@@ -34,4 +34,15 @@ export const addTag = async (apiKey, contactId, tags) => {
   }
 };
 
-// Add more GHL actions as needed by the 10 mappings
+export const createOpportunity = async (apiKey, pipelineId, stageId, opportunityData) => {
+  try {
+    const res = await axios.post(`${GHL_BASE_URL}/pipelines/${pipelineId}/stages/${stageId}/opportunities`, opportunityData, {
+      headers: getHeaders(apiKey)
+    });
+    saveLog('SEEWHY_TO_GHL', `/opportunities`, opportunityData, res.status, res.data);
+    return res.data;
+  } catch (error) {
+    saveLog('SEEWHY_TO_GHL', `/opportunities`, opportunityData, error.response?.status || 500, error.response?.data || error.message, error.message);
+    throw error;
+  }
+};
