@@ -43,6 +43,23 @@ router.post('/events', seewhyWebhookAuth, async (req, res) => {
         });
         break;
 
+      case 'CREATE_OPPORTUNITY':
+        if (data.email) {
+          const contact = await upsertContact(ghlApiKey, {
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            tags: [config.tag]
+          });
+          const contactId = contact.id || contact.contact?.id;
+          await createOpportunity(ghlApiKey, config.pipelineId, config.stageId, {
+            name: `${data.firstName || 'User'} - ${event}`,
+            status: 'open',
+            contactId
+          });
+        }
+        break;
+
       // ... Add more cases for the 10 triggers ...
       
       default:
