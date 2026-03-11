@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { seewhyWebhookAuth } from '../middleware/auth.js';
-import { addTag, upsertContact } from '../services/ghl.js';
+import { addTag, upsertContact, createOpportunity } from '../services/ghl.js';
 import db, { getConfig } from '../db/index.js';
 
 const router = Router();
