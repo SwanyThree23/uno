@@ -1,0 +1,10 @@
+{
+  "name": "seewhy-live",
+  "version": "1.0.0",
+  "description": "SeeWhy Live Production Backend",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
