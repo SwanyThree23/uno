@@ -103,7 +103,8 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
 // ─── SOCKET.IO ───────────────────────────────────────────────────────────────
 
 const pubClient = redis;
-const subClient = createClient({ host: new URL(process.env.REDIS_URL || 'redis://localhost:6379').hostname });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const subClient = new (Redis as any)(process.env.REDIS_URL || 'redis://localhost:6379');
 
 const io = new SocketServer(server, {
   cors: {
@@ -114,7 +115,8 @@ const io = new SocketServer(server, {
 });
 
 // Redis adapter for horizontal scaling
-io.adapter(createAdapter(pubClient as unknown as ReturnType<typeof createClient>, subClient));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+io.adapter(createAdapter(pubClient as any, subClient as any));
 
 // Socket authentication middleware
 io.use(async (socket, next) => {
