@@ -8,7 +8,7 @@ import cors from 'cors';
 import { createServer } from 'http';
 import { Server as SocketServer } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
-import { createClient } from 'ioredis';
+import Redis from 'ioredis';
 
 import { logger } from './lib/logger.js';
 import { prisma } from './lib/prisma.js';

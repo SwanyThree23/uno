@@ -106,7 +106,7 @@ router.get('/:id/followers', async (req, res) => {
     take: 50,
     orderBy: { createdAt: 'desc' },
   });
-  res.json(followers.map(f => f.follower));
+  res.json(followers.map((f: any) => f.follower));
 });
 
 // GET /api/users/:id/following
@@ -117,7 +117,7 @@ router.get('/:id/following', async (req, res) => {
     take: 50,
     orderBy: { createdAt: 'desc' },
   });
-  res.json(following.map(f => f.followed));
+  res.json(following.map((f: any) => f.followed));
 });
 
 // PATCH /api/users/:id/role — admin only
