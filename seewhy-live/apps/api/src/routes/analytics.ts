@@ -143,16 +143,16 @@ router.get('/revenue', authenticate, async (req, res) => {
     byDay[day].count   += 1;
   }
 
-  const total = transactions.reduce((sum, t) => sum + Number(t.creatorAmount), 0);
+  const total = transactions.reduce((sum: number, t) => sum + Number(t.creatorAmount), 0);
 
   res.json({
     period,
     total,
     daily: Object.values(byDay),
     byType: {
-      superchats: transactions.filter(t => t.type === 'SUPERCHAT').reduce((s, t) => s + Number(t.creatorAmount), 0),
-      tips:       transactions.filter(t => t.type === 'TIP').reduce((s, t) => s + Number(t.creatorAmount), 0),
-      products:   transactions.filter(t => t.type === 'PRODUCT_SALE').reduce((s, t) => s + Number(t.creatorAmount), 0),
+      superchats: transactions.filter(t => t.type === 'SUPERCHAT').reduce((s: number, t) => s + Number(t.creatorAmount), 0),
+      tips:       transactions.filter(t => t.type === 'TIP').reduce((s: number, t) => s + Number(t.creatorAmount), 0),
+      products:   transactions.filter(t => t.type === 'PRODUCT_SALE').reduce((s: number, t) => s + Number(t.creatorAmount), 0),
     },
   });
 });

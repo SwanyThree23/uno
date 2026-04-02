@@ -16,7 +16,7 @@ export function registerPresenceHandler(io: Server, socket: Socket): void {
   redis.sadd(presenceKey, viewerId).then(() => {
     redis.expire(presenceKey, PRESENCE_TTL);
     // Broadcast updated count
-    redis.scard(presenceKey).then(count => {
+    redis.scard(presenceKey).then((count: number) => {
       io.to(`stage:${stageId}:presence`).emit('presence:count', { count });
     });
   });

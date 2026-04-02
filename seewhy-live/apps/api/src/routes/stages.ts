@@ -39,7 +39,7 @@ const ListStageQuerySchema = z.object({
 
 // GET /api/stages — list public stages
 router.get('/', optionalAuth, validate(ListStageQuerySchema, 'query'), async (req, res) => {
-  const { page, limit, status, category, search } = req.query as z.infer<typeof ListStageQuerySchema>;
+  const { page, limit, status, category, search } = req.query as unknown as z.infer<typeof ListStageQuerySchema>;
   const skip = (page - 1) * limit;
 
   const where: Record<string, unknown> = { isPublic: true };
