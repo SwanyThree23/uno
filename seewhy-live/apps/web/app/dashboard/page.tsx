@@ -34,16 +34,15 @@ function StatCard({ icon, value, label, color = 'var(--color-brand-violet)' }: {
 }) {
   return (
     <div className="stat-card" style={{ borderLeft: `3px solid ${color}` }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="flex justify-between items-start">
         <div>
           <div className="stat-value">{value}</div>
           <div className="stat-label">{label}</div>
         </div>
-        <div style={{
-          width: 44, height: 44, borderRadius: 12,
-          background: `${color}15`, display: 'flex', alignItems: 'center',
-          justifyContent: 'center', fontSize: 20,
-        }}>
+        <div 
+          className="flex items-center justify-center w-44 h-44 rounded-xl text-xl"
+          style={{ background: `${color}15` }}
+        >
           {icon}
         </div>
       </div>

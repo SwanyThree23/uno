@@ -90,23 +90,18 @@ export default function WatchPage() {
 
   if (!stage) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="flex h-screen items-center justify-center">
         <div className="skeleton" style={{ width: 200, height: 20 }} />
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="flex min-h-screen flex-col">
       {/* Header */}
-      <header style={{
-        background: 'rgba(9,9,18,0.95)', backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid var(--color-border-2)',
-        padding: '0 24px', height: 56,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 18 }}>
+      <header className="flex items-center justify-between h-56 p-24 glass border-b border-color-border-2" style={{ background: 'rgba(9,9,18,0.95)' }}>
+        <div className="flex items-center gap-12">
+          <span className="font-space-grotesk font-800 text-lg">
             SeeWhy <span className="gradient-text">LIVE</span>
           </span>
           {stage.status === 'LIVE' && (
@@ -116,34 +111,32 @@ export default function WatchPage() {
             </div>
           )}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 13, color: 'var(--color-text-muted)' }}>
+        <div className="flex items-center gap-16 text-xs color-text-muted">
           <span>👀 {viewerCount} watching</span>
           {metrics.bitrate && <span>📡 {metrics.bitrate}kbps</span>}
           {metrics.fps && <span>🎬 {metrics.fps}fps</span>}
         </div>
       </header>
 
-      <div style={{ flex: 1, display: 'flex' }}>
+      <div className="flex flex-1">
         {/* Video area */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div className="flex flex-1 flex-col">
           {/* VDO.Ninja viewer */}
-          <div style={{ flex: 1, background: '#000', minHeight: 0, position: 'relative' }}>
+          <div className="flex-1 bg-black relative min-h-0">
             {stage.roomId && stage.status === 'LIVE' ? (
               <iframe
                 src={`${VDO_NINJA_BASE}/?room=${stage.roomId}&view&scene&cleanish`}
-                style={{ width: '100%', height: '100%', border: 'none', minHeight: 480 }}
+                className="w-full h-full border-none"
+                style={{ minHeight: 480 }}
                 allow="autoplay;fullscreen"
                 title={stage.title}
               />
             ) : (
-              <div style={{
-                height: 480, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexDirection: 'column', gap: 12, color: 'var(--color-text-muted)',
-              }}>
-                <div style={{ fontSize: 48 }}>
+              <div className="flex flex-col items-center justify-center gap-12 color-text-muted" style={{ height: 480 }}>
+                <div className="text-5xl">
                   {stage.status === 'UPCOMING' ? '⏳' : stage.status === 'ENDED' ? '📼' : '🎥'}
                 </div>
-                <div style={{ fontSize: 16 }}>
+                <div className="text-base text-center">
                   {stage.status === 'UPCOMING' ? 'Stream hasn\'t started yet' :
                    stage.status === 'ENDED'    ? 'Stream has ended' : 'Waiting for stream...'}
                 </div>
@@ -152,16 +145,9 @@ export default function WatchPage() {
             
             {/* Live Captions Layer */}
             {captions.length > 0 && (
-              <div style={{
-                position: 'absolute', bottom: 40, left: 0, width: '100%',
-                display: 'flex', flexDirection: 'column', alignItems: 'center',
-                pointerEvents: 'none', gap: 4, zIndex: 10
-              }}>
+              <div className="absolute left-0 w-full flex flex-col items-center gap-4 pointer-events-none" style={{ bottom: 40, zIndex: 10 }}>
                 {captions.map((c, i) => (
-                  <div key={c.timestamp} style={{
-                    background: 'rgba(0,0,0,0.75)', color: 'white',
-                    padding: '6px 12px', borderRadius: 4, fontSize: 18,
-                    fontWeight: 600, textShadow: '1px 1px 2px black',
+                  <div key={c.timestamp} className="bg-black-75 color-white p-8 px-12 rounded-sm text-lg font-600 shadow-caption" style={{
                     opacity: 1 - ((captions.length - 1 - i) * 0.25)
                   }}>
                     {c.text}
@@ -172,23 +158,19 @@ export default function WatchPage() {
           </div>
 
           {/* Stage info */}
-          <div style={{ padding: '16px 24px', borderTop: '1px solid var(--color-border-2)' }}>
-            <h1 style={{ fontSize: 20, marginBottom: 8 }}>{stage.title}</h1>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{
-                width: 32, height: 32, borderRadius: '50%',
-                background: 'var(--gradient-brand)', display: 'flex',
-                alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: 'white',
-              }}>
+          <div className="p-24 border-t border-color-border-2">
+            <h1 className="text-xl mb-8">{stage.title}</h1>
+            <div className="flex items-center gap-12">
+              <div className="flex items-center justify-center w-32 h-32 rounded-full bg-brand-gradient text-xs font-700 color-white">
                 {stage.creator.displayName[0]}
               </div>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 600 }}>{stage.creator.displayName}</div>
-                <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>@{stage.creator.username}</div>
+                <div className="text-sm font-600">{stage.creator.displayName}</div>
+                <div className="text-xs color-text-muted">@{stage.creator.username}</div>
               </div>
             </div>
             {stage.description && (
-              <p style={{ marginTop: 12, fontSize: 14, color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+              <p className="mt-12 text-sm color-text-muted leading-relaxed">
                 {stage.description}
               </p>
             )}
@@ -196,61 +178,51 @@ export default function WatchPage() {
         </div>
 
         {/* Chat sidebar */}
-        <aside style={{
-          width: 340, flexShrink: 0, borderLeft: '1px solid var(--color-border-2)',
-          display: 'flex', flexDirection: 'column',
-        }}>
-          <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--color-border-2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h2 style={{ fontSize: 14, fontWeight: 600 }}>💬 Live Chat</h2>
-            <span style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>{stage._count.chatMessages} messages</span>
+        <aside className="flex flex-col border-l border-color-border-2 bg-surface" style={{ width: 340, flexShrink: 0 }}>
+          <div className="flex items-center justify-between p-16 border-b border-color-border-2">
+            <h2 className="text-sm font-600">💬 Live Chat</h2>
+            <span className="text-xs color-text-muted">{stage._count.chatMessages} messages</span>
           </div>
 
-          <div style={{ flex: 1, overflow: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <div className="flex flex-1 flex-col gap-8 p-12 overflow-auto">
             {chatMessages.map(msg => (
-              <div key={msg.id} style={{
-                padding: '8px 10px', borderRadius: 'var(--radius-md)',
-                background: msg.type === 'SUPERCHAT' ? 'rgba(245,158,11,0.1)' : 'var(--color-surface)',
-                border: msg.type === 'SUPERCHAT' ? '1px solid rgba(245,158,11,0.3)' : 'none',
-              }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: msg.type === 'SUPERCHAT' ? '#f59e0b' : 'var(--color-brand-violet)', marginBottom: 2 }}>
+              <div key={msg.id} className={`p-12 rounded-md ${
+                msg.type === 'SUPERCHAT' ? 'bg-amber-10 border border-amber-30' : 'bg-surface border border-color-border-2'
+              }`}>
+                <div className={`text-xs font-600 mb-4 ${msg.type === 'SUPERCHAT' ? 'color-warning' : 'color-brand-violet'}`}>
                   {msg.user?.displayName || 'Anonymous'}
-                  {msg.type === 'SUPERCHAT' && <span style={{ marginLeft: 6 }}>💰 ${Number(msg.amount).toFixed(2)}</span>}
+                  {msg.type === 'SUPERCHAT' && <span className="ml-8">💰 ${Number(msg.amount).toFixed(2)}</span>}
                   {msg.platform !== 'SEEWHY' && (
-                    <span style={{ marginLeft: 6, fontSize: 10, opacity: 0.7 }}>[{msg.platform}]</span>
+                    <span className="ml-8 text-xxs opacity-70">[{msg.platform}]</span>
                   )}
                 </div>
-                <div style={{ fontSize: 13, lineHeight: 1.4 }}>{msg.message}</div>
+                <div className="text-sm leading-normal">{msg.message}</div>
               </div>
             ))}
             <div ref={chatEndRef} />
           </div>
 
-          <div style={{ padding: 12, borderTop: '1px solid var(--color-border-2)' }}>
+          <div className="p-12 border-t border-color-border-2">
             {/* Superchat amount */}
-            <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
+            <div className="flex gap-8 mb-12">
               {['1', '5', '10', '25', '50'].map(amt => (
                 <button
                   key={amt}
                   onClick={() => setSuperchatAmount(superchatAmount === amt ? '' : amt)}
-                  style={{
-                    flex: 1, padding: '5px 2px', fontSize: 11, fontWeight: 600,
-                    borderRadius: 'var(--radius-sm)', border: 'none', cursor: 'pointer',
-                    background: superchatAmount === amt ? 'rgba(245,158,11,0.2)' : 'var(--color-surface-2)',
-                    color: superchatAmount === amt ? '#f59e0b' : 'var(--color-text-muted)',
-                    transition: 'all 0.15s',
-                  }}
+                  className={`flex-1 py-4 text-xs font-600 rounded-sm border-none cursor-pointer transition-all ${
+                    superchatAmount === amt ? 'bg-amber-20 color-warning' : 'bg-surface-2 color-text-muted'
+                  }`}
                 >
                   ${amt}
                 </button>
               ))}
             </div>
 
-            <form onSubmit={sendChat} style={{ display: 'flex', gap: 8 }}>
+            <form onSubmit={sendChat} className="flex gap-8">
               <input
                 id="watch-chat-input"
-                className="input"
+                className={`input text-sm ${superchatAmount ? 'border-warning-40' : ''}`}
                 style={{
-                  fontSize: 13,
                   borderColor: superchatAmount ? 'rgba(245,158,11,0.4)' : undefined,
                 }}
                 placeholder={superchatAmount ? `💰 Superchat $${superchatAmount}...` : 'Send a message...'}
@@ -260,10 +232,10 @@ export default function WatchPage() {
               <button
                 id="watch-send-chat-btn"
                 type="submit"
-                className="btn btn-sm"
+                className="btn btn-sm flex-shrink-0"
                 style={{
                   background: superchatAmount ? 'linear-gradient(135deg, #f59e0b, #fbbf24)' : 'var(--gradient-brand)',
-                  color: 'white', flexShrink: 0,
+                  color: 'white',
                 }}
               >
                 {superchatAmount ? '💰' : '→'}
