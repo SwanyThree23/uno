@@ -22,6 +22,7 @@ import subscriptionRoutes from './routes/subscriptions.js';
 import streamKeyRoutes from './routes/streamKeys.js';
 import analyticsRoutes from './routes/analytics.js';
 import marketplaceRoutes from './routes/marketplace.js';
+import highlightRoutes from './routes/highlights.js';
 // Socket handlers
 import { registerChatHandler } from './sockets/chatHandler.js';
 import { registerPresenceHandler } from './sockets/presenceHandler.js';
@@ -57,6 +58,7 @@ app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/stream-keys', streamKeyRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/marketplace', marketplaceRoutes);
+app.use('/api/highlights', highlightRoutes);
 // Health check
 app.get('/health', async (_req, res) => {
     try {

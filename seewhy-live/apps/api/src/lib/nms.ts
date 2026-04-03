@@ -3,6 +3,7 @@
 // Handles HLS/DASH packetization for edge delivery
 // Serves as the origin for CDN distribution
 
+// @ts-ignore
 import NodeMediaServer from 'node-media-server';
 import { logger } from './logger.js';
 import { prisma } from './prisma.js';
@@ -47,7 +48,7 @@ export function initRTMPServer() {
 
     nms = new NodeMediaServer(config);
 
-    nms.on('prePublish', async (id, StreamPath, args) => {
+    nms.on('prePublish', async (id: string, StreamPath: string, args: any) => {
       logger.info({ id, StreamPath, args }, '[RTMP] prePublish event');
       const streamKey = StreamPath.split('/').pop();
       if (!streamKey) {
@@ -70,7 +71,7 @@ export function initRTMPServer() {
       }
     });
 
-    nms.on('donePublish', (id, StreamPath, args) => {
+    nms.on('donePublish', (id: string, StreamPath: string, args: any) => {
       logger.info({ id, StreamPath }, '[RTMP] donePublish event (Stream offline)');
     });
 

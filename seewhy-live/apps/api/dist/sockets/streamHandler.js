@@ -41,7 +41,30 @@ export function registerStreamHandler(io, socket) {
     socket.on('stream:guestState', (data) => {
         socket.to(`stage:${stageId}:stream`).emit('stream:guestState', data);
     });
+    // --- WebRTC Signaling (Multi-Panel Video Rooms) ---
+    socket.on('webrtc:join', (data) => {
+        socket.join(`stage:${stageId}:webrtc`);
+        // Notify others that a new peer joined
+        socket.to(`stage:${stageId}:webrtc`).emit('webrtc:peerJoined', { peerId: data.peerId, socketId: socket.id, role: data.role });
+    });
+    socket.on('webrtc:offer', (data) => {
+        // Send the offer to the specific peer
+        io.to(data.to).emit('webrtc:offer', { from: socket.id, peerId: data.peerId, offer: data.offer });
+    });
+    socket.on('webrtc:answer', (data) => {
+        // Send the answer to the specific peer
+        io.to(data.to).emit('webrtc:answer', { from: socket.id, peerId: data.peerId, answer: data.answer });
+    });
+    socket.on('webrtc:ice-candidate', (data) => {
+        // Exchange ICE candidates for NAT traversal
+        io.to(data.to).emit('webrtc:ice-candidate', { from: socket.id, peerId: data.peerId, candidate: data.candidate });
+    });
+    socket.on('webrtc:leave', (data) => {
+        socket.to(`stage:${stageId}:webrtc`).emit('webrtc:peerLeft', { peerId: data.peerId, socketId: socket.id });
+        socket.leave(`stage:${stageId}:webrtc`);
+    });
     socket.on('disconnect', () => {
-        logger.debug({ stageId, userId }, 'Stream socket disconnected');
+        socket.to(`stage:${stageId}:webrtc`).emit('webrtc:peerLeft', { socketId: socket.id });
+        logger.debug({ stageId, userId, socketId: socket.id }, 'Stream socket disconnected');
     });
 }
