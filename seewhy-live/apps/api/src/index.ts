@@ -12,6 +12,7 @@ import Redis from 'ioredis';
 
 import { logger } from './lib/logger.js';
 import { prisma } from './lib/prisma.js';
+import { initRTMPServer } from './lib/nms.js';
 import { redis } from './lib/redis.js';
 import { verifyAccessToken } from './lib/jwt.js';
 import { apiLimiter } from './middleware/rateLimiter.js';
