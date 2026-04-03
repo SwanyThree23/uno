@@ -96,18 +96,12 @@ export default function DashboardPage() {
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div className="flex min-h-screen">
       {/* ─── SIDEBAR ─────────────────────────────────────────────────── */}
-      <aside style={{
-        width: 240, flexShrink: 0,
-        background: 'var(--color-surface)',
-        borderRight: '1px solid var(--color-border-2)',
-        padding: '24px 16px',
-        display: 'flex', flexDirection: 'column',
-      }}>
-        <div style={{ marginBottom: 32 }}>
-          <Link href="/" style={{ textDecoration: 'none' }}>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 18 }}>
+      <aside className="flex flex-col w-240 flex-shrink-0 p-24 bg-surface border-r border-color-border-2">
+        <div className="mb-32">
+          <Link href="/" className="no-underline">
+            <span className="font-space-grotesk font-800 text-lg">
               SeeWhy <span className="gradient-text">LIVE</span>
             </span>
           </Link>
@@ -115,30 +109,21 @@ export default function DashboardPage() {
 
         {/* User */}
         {user && (
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 10,
-            padding: '12px', borderRadius: 'var(--radius-md)',
-            background: 'var(--color-surface-2)', marginBottom: 24,
-          }}>
-            <div style={{
-              width: 36, height: 36, borderRadius: '50%',
-              background: 'var(--gradient-brand)', display: 'flex',
-              alignItems: 'center', justifyContent: 'center',
-              fontSize: 14, fontWeight: 700, color: 'white', flexShrink: 0,
-            }}>
+          <div className="flex items-center gap-12 p-12 rounded-md bg-surface-2 mb-24 transition-all">
+            <div className="flex items-center justify-center w-40 h-40 rounded-full bg-brand-gradient text-sm font-700 color-white flex-shrink-0">
               {user.displayName[0]}
             </div>
-            <div style={{ overflow: 'hidden' }}>
-              <div style={{ fontSize: 13, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <div className="overflow-hidden">
+              <div className="text-sm font-600 truncate">
                 {user.displayName}
               </div>
-              <div style={{ fontSize: 11, color: 'var(--color-text-muted)' }}>@{user.username}</div>
+              <div className="text-xs color-text-muted">@{user.username}</div>
             </div>
           </div>
         )}
 
         {/* Nav links */}
-        <nav style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <nav className="flex flex-1 flex-col gap-4">
           {[
             { href: '/dashboard', icon: '📊', label: 'Dashboard' },
             { href: '/studio', icon: '🎥', label: 'Go Live' },
@@ -157,31 +142,30 @@ export default function DashboardPage() {
 
         <button
           onClick={() => { localStorage.clear(); window.location.href = '/sign-in'; }}
-          className="btn btn-ghost btn-sm"
-          style={{ width: '100%', marginTop: 8 }}
+          className="btn btn-ghost btn-sm mt-8 w-full"
         >
           Sign Out
         </button>
       </aside>
 
       {/* ─── MAIN CONTENT ────────────────────────────────────────────── */}
-      <main style={{ flex: 1, padding: '32px', overflow: 'auto' }}>
-        <div style={{ marginBottom: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <main className="flex-1 p-32 overflow-auto bg-background">
+        <div className="flex items-center justify-between mb-32">
           <div>
-            <h1 style={{ fontSize: 24, marginBottom: 4 }}>
+            <h1 className="text-2xl mb-8">
               {user ? `Welcome back, ${user.displayName.split(' ')[0]}! 👋` : 'Dashboard'}
             </h1>
-            <p style={{ color: 'var(--color-text-muted)', fontSize: 14 }}>
+            <p className="text-sm color-text-muted">
               {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </div>
-          <Link href="/studio" className="btn btn-primary">
+          <Link href="/studio" className="btn btn-primary px-24 py-12">
             🎥 Go Live
           </Link>
         </div>
 
         {/* Stats Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 32 }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-16 mb-32">
           <StatCard icon="📺" value={data?.totalStages ?? 0} label="Total Stages" color="#8b5cf6" />
           <StatCard icon="🔴" value={data?.liveStages ?? 0} label="Live Now" color="#ef4444" />
           <StatCard icon="💰" value={`$${(data?.totalRevenue ?? 0).toFixed(2)}`} label="Total Earnings (90%)" color="#10b981" />
@@ -190,73 +174,65 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Content */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
           {/* Recent Stages */}
-          <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--color-border-2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h2 style={{ fontSize: 16 }}>Recent Stages</h2>
-              <Link href="/dashboard/stages" style={{ fontSize: 12, color: 'var(--color-brand-violet)', textDecoration: 'none' }}>View all</Link>
+          <div className="card p-0 overflow-hidden glass-card">
+            <div className="flex items-center justify-between p-20 border-b border-color-border-2">
+              <h2 className="text-lg font-600">Recent Stages</h2>
+              <Link href="/dashboard/stages" className="text-xs color-brand-violet no-underline font-600">View all</Link>
             </div>
             {data?.recentStages.length ? (
               data.recentStages.map(stage => (
-                <div key={stage.id} style={{
-                  padding: '14px 20px', borderBottom: '1px solid var(--color-border-2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                }}>
+                <div key={stage.id} className="flex items-center justify-between p-20 border-b border-color-border-2 hover:bg-surface-2 transition-colors">
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 2 }}>{stage.title}</div>
-                    <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>
+                    <div className="text-sm font-600 mb-4">{stage.title}</div>
+                    <div className="text-xs color-text-muted">
                       {stage._count.guests} guests · {stage._count.chatMessages} messages
                     </div>
                   </div>
-                  <span style={{
-                    fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 'var(--radius-full)',
-                    background: stage.status === 'LIVE' ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.05)',
-                    color: stage.status === 'LIVE' ? '#f87171' : 'var(--color-text-muted)',
-                  }}>
+                  <span className={`text-xs font-700 px-12 py-4 rounded-full ${
+                    stage.status === 'LIVE' ? 'bg-danger-10 color-danger' : 'bg-surface-2 color-text-muted'
+                  }`}>
                     {stage.status}
                   </span>
                 </div>
               ))
             ) : (
-              <div style={{ padding: '32px', textAlign: 'center', color: 'var(--color-text-muted)', fontSize: 14 }}>
-                No stages yet. <Link href="/studio" style={{ color: 'var(--color-brand-violet)', textDecoration: 'none' }}>Go live!</Link>
+              <div className="p-40 text-center color-text-muted text-sm">
+                No stages yet. <Link href="/studio" className="color-brand-violet no-underline font-600">Go live!</Link>
               </div>
             )}
           </div>
 
           {/* Recent Transactions */}
-          <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--color-border-2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h2 style={{ fontSize: 16 }}>Recent Earnings</h2>
-              <Link href="/dashboard/earnings" style={{ fontSize: 12, color: 'var(--color-brand-violet)', textDecoration: 'none' }}>View all</Link>
+          <div className="card p-0 overflow-hidden glass-card">
+            <div className="flex items-center justify-between p-20 border-b border-color-border-2">
+              <h2 className="text-lg font-600">Recent Earnings</h2>
+              <Link href="/dashboard/earnings" className="text-xs color-brand-violet no-underline font-600">View all</Link>
             </div>
             {data?.recentTransactions.length ? (
               data.recentTransactions.map(tx => (
-                <div key={tx.id} style={{
-                  padding: '14px 20px', borderBottom: '1px solid var(--color-border-2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                }}>
+                <div key={tx.id} className="flex items-center justify-between p-20 border-b border-color-border-2 hover:bg-surface-2 transition-colors">
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 2 }}>
+                    <div className="text-sm font-600 mb-4">
                       {tx.fromUser?.displayName || 'Anonymous'}
                     </div>
-                    <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>
+                    <div className="text-xs color-text-muted">
                       {tx.type} · {tx.stage?.title || 'Direct'}
                     </div>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#10b981' }}>
+                  <div className="text-right">
+                    <div className="text-sm font-700 color-success">
                       +${Number(tx.creatorAmount).toFixed(2)}
                     </div>
-                    <div style={{ fontSize: 11, color: 'var(--color-text-dim)' }}>
+                    <div className="text-xs color-text-dim">
                       of ${Number(tx.grossAmount).toFixed(2)}
                     </div>
                   </div>
                 </div>
               ))
             ) : (
-              <div style={{ padding: '32px', textAlign: 'center', color: 'var(--color-text-muted)', fontSize: 14 }}>
+              <div className="p-40 text-center color-text-muted text-sm">
                 No earnings yet. Start streaming to earn!
               </div>
             )}

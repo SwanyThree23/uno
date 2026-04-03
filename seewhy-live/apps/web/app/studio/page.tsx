@@ -148,18 +148,15 @@ export default function StudioPage() {
   const roomId = stage?.roomId || '';
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
+    <div className="flex h-screen flex-col">
       {/* ─── TOP BAR ─────────────────────────────────────────────────── */}
-      <header style={{
-        background: 'var(--color-surface)', borderBottom: '1px solid var(--color-border-2)',
-        padding: '0 24px', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <Link href="/dashboard" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: 14 }}>
+      <header className="flex items-center justify-between p-24 h-60 glass-light border-b border-color-border-2">
+        <div className="flex items-center gap-16">
+          <Link href="/dashboard" className="no-underline text-sm color-text-muted">
             ← Dashboard
           </Link>
-          <span style={{ color: 'var(--color-border-2)' }}>|</span>
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 16 }}>
+          <span className="color-border-2">|</span>
+          <span className="font-space-grotesk font-700 text-base">
             🎥 Stream Studio
           </span>
           {isLive && (
@@ -170,9 +167,9 @@ export default function StudioPage() {
           )}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div className="flex items-center gap-12">
           {isLive && (
-            <div style={{ display: 'flex', gap: 16, fontSize: 13, color: 'var(--color-text-muted)' }}>
+            <div className="flex gap-16 text-xs color-text-muted">
               <span title="Viewers">👀 {viewerCount}</span>
               {metrics.bitrate && <span title="Bitrate">📡 {metrics.bitrate}kbps</span>}
               {metrics.fps && <span title="FPS">🎬 {metrics.fps}fps</span>}
@@ -191,30 +188,25 @@ export default function StudioPage() {
         </div>
       </header>
 
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+      <div className="flex flex-1 overflow-hidden">
         {/* ─── SIDEBAR — Stage select ──────────────────────────────── */}
-        <aside style={{
-          width: 260, flexShrink: 0, background: 'var(--color-surface)',
-          borderRight: '1px solid var(--color-border-2)', padding: 16,
-          display: 'flex', flexDirection: 'column', gap: 12, overflow: 'auto',
-        }}>
+        <aside className="flex flex-col gap-12 p-16 overflow-auto bg-surface border-r border-color-border-2" style={{ width: 260, flexShrink: 0 }}>
           <div>
-            <h2 style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 10, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <h2 className="label-text uppercase tracking-wider mb-8">
               My Stages
             </h2>
 
             {/* Create new */}
-            <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+            <div className="flex gap-8 mb-16">
               <input
                 id="new-stage-title"
-                className="input"
-                style={{ fontSize: 13 }}
+                className="input text-xs"
                 placeholder="New stage title..."
                 value={newTitle}
                 onChange={e => setNewTitle(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && createStage()}
               />
-              <button id="create-stage-btn" className="btn btn-primary btn-sm" onClick={createStage} disabled={creating} style={{ flexShrink: 0 }}>
+              <button id="create-stage-btn" className="btn btn-primary btn-sm flex-shrink-0" onClick={createStage} disabled={creating}>
                 +
               </button>
             </div>
@@ -223,16 +215,17 @@ export default function StudioPage() {
               <button
                 key={s.id}
                 onClick={() => setStage(s)}
+                className={`w-full text-left p-12 rounded-md border-none cursor-pointer mb-4 transition-all ${
+                  stage?.id === s.id ? 'bg-brand-violet-15 color-brand-violet' : 'bg-transparent color-text'
+                }`}
                 style={{
-                  width: '100%', textAlign: 'left', padding: '10px 12px',
-                  borderRadius: 'var(--radius-md)', border: 'none', cursor: 'pointer',
                   background: stage?.id === s.id ? 'rgba(139,92,246,0.15)' : 'transparent',
                   color: stage?.id === s.id ? 'var(--color-brand-violet)' : 'var(--color-text)',
-                  fontSize: 13, marginBottom: 2,
+                  fontSize: 13,
                 }}
               >
-                <div style={{ fontWeight: 600, marginBottom: 2 }}>{s.title}</div>
-                <div style={{ fontSize: 11, color: 'var(--color-text-muted)' }}>
+                <div className="font-600 mb-4">{s.title}</div>
+                <div className="text-xs color-text-muted">
                   {s.status} · {s.guestLimit} guests max
                 </div>
               </button>
@@ -241,29 +234,23 @@ export default function StudioPage() {
         </aside>
 
         {/* ─── CENTER — Video panels ─────────────────────────────── */}
-        <main style={{ flex: 1, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <main className="flex flex-1 flex-col gap-12 p-16">
           {stage ? (
             <>
               {/* VDO.Ninja iframe embed */}
-              <div style={{
-                flex: 1, background: '#000', borderRadius: 'var(--radius-lg)',
-                overflow: 'hidden', minHeight: 400, position: 'relative',
-              }}>
+              <div className="flex-1 bg-black rounded-lg overflow-hidden relative" style={{ minHeight: 400 }}>
                 {roomId ? (
                   <iframe
                     src={`${VDO_NINJA_BASE}/?room=${roomId}&push&label=${encodeURIComponent('Creator')}&bitrate=2500&effects&cleanish`}
-                    style={{ width: '100%', height: '100%', border: 'none' }}
+                    className="w-full h-full border-none"
                     allow="camera;microphone;fullscreen;display-capture"
                     title="Stream Studio"
                   />
                 ) : (
-                  <div style={{
-                    position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
-                    alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)',
-                  }}>
-                    <div style={{ fontSize: 48, marginBottom: 16 }}>🎥</div>
-                    <div style={{ fontSize: 16, marginBottom: 8 }}>Select a stage and go live</div>
-                    <div style={{ fontSize: 13, color: 'var(--color-text-dim)' }}>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center color-text-muted">
+                    <div className="text-5xl mb-16">🎥</div>
+                    <div className="text-base mb-8">Select a stage and go live</div>
+                    <div className="text-xs color-text-dim text-center">
                       Your camera will activate when you click &ldquo;Go Live&rdquo;
                     </div>
                   </div>
@@ -271,27 +258,23 @@ export default function StudioPage() {
               </div>
 
               {/* Stream info bar */}
-              <div style={{
-                background: 'var(--color-surface)', padding: '12px 16px',
-                borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-2)',
-                display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap',
-              }}>
+              <div className="flex items-center flex-wrap gap-24 p-16 bg-surface rounded-md border border-color-border-2">
                 <div>
-                  <div style={{ fontSize: 11, color: 'var(--color-text-dim)', marginBottom: 2 }}>STAGE</div>
-                  <div style={{ fontSize: 14, fontWeight: 600 }}>{stage.title}</div>
+                  <div className="text-xs color-text-dim mb-4 tracking-tighter uppercase font-600">STAGE</div>
+                  <div className="text-sm font-600">{stage.title}</div>
                 </div>
                 {roomId && (
                   <div>
-                    <div style={{ fontSize: 11, color: 'var(--color-text-dim)', marginBottom: 2 }}>GUEST LINK</div>
-                    <div style={{ fontSize: 12, color: 'var(--color-brand-cyan)', fontFamily: 'monospace' }}>
+                    <div className="text-xs color-text-dim mb-4 tracking-tighter uppercase font-600">GUEST LINK</div>
+                    <div className="text-xs color-brand-cyan font-mono">
                       {VDO_NINJA_BASE}/?room={roomId}&view
                     </div>
                   </div>
                 )}
                 {roomId && (
                   <div>
-                    <div style={{ fontSize: 11, color: 'var(--color-text-dim)', marginBottom: 2 }}>WATCH PAGE</div>
-                    <Link href={`/watch/${stage.id}`} target="_blank" style={{ fontSize: 12, color: 'var(--color-brand-violet)', textDecoration: 'none' }}>
+                    <div className="text-xs color-text-dim mb-4 tracking-tighter uppercase font-600">WATCH PAGE</div>
+                    <Link href={`/watch/${stage.id}`} target="_blank" className="text-xs color-brand-violet no-underline">
                       /watch/{stage.id} ↗
                     </Link>
                   </div>
@@ -299,50 +282,44 @@ export default function StudioPage() {
               </div>
             </>
           ) : (
-            <div style={{
-              flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'var(--color-text-muted)', flexDirection: 'column', gap: 12,
-            }}>
-              <div style={{ fontSize: 48 }}>📺</div>
-              <div>Select a stage from the left to start streaming</div>
+            <div className="flex flex-1 flex-col items-center justify-center gap-12 color-text-muted">
+              <div className="text-5xl">📺</div>
+              <div className="text-center">Select a stage from the left to start streaming</div>
             </div>
           )}
         </main>
 
         {/* ─── CHAT PANEL ──────────────────────────────────────────── */}
-        <aside style={{
-          width: 300, flexShrink: 0, borderLeft: '1px solid var(--color-border-2)',
-          display: 'flex', flexDirection: 'column',
-        }}>
-          <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--color-border-2)' }}>
-            <h2 style={{ fontSize: 14, fontWeight: 600 }}>
+        <aside className="flex flex-col border-l border-color-border-2" style={{ width: 300, flexShrink: 0 }}>
+          <div className="p-12 border-b border-color-border-2">
+            <h2 className="text-sm font-600">
               💬 Live Chat
-              {isLive && <span style={{ color: 'var(--color-text-muted)', fontSize: 12, fontWeight: 400, marginLeft: 8 }}>{viewerCount} watching</span>}
+              {isLive && <span className="color-text-muted text-xs font-400 ml-8">{viewerCount} watching</span>}
             </h2>
           </div>
 
-          <div style={{ flex: 1, overflow: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div className="flex flex-1 flex-col gap-8 p-12 overflow-auto">
             {chatMessages.map(msg => (
-              <div key={msg.id} style={{
-                padding: '8px 10px', borderRadius: 'var(--radius-md)',
+              <div key={msg.id} className={`p-12 rounded-md border ${
+                msg.type === 'SUPERCHAT' ? 'bg-amber-10 border-amber-30' : 'bg-surface border-color-border-2'
+              }`} style={{
                 background: msg.type === 'SUPERCHAT' ? 'rgba(245,158,11,0.1)' : 'var(--color-surface)',
                 border: msg.type === 'SUPERCHAT' ? '1px solid rgba(245,158,11,0.3)' : '1px solid var(--color-border-2)',
               }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: msg.type === 'SUPERCHAT' ? '#f59e0b' : 'var(--color-brand-violet)', marginBottom: 2 }}>
+                <div className={`text-xs font-600 mb-4 ${msg.type === 'SUPERCHAT' ? 'color-warning' : 'color-brand-violet'}`}>
                   {msg.user?.displayName || 'Anonymous'}
-                  {msg.type === 'SUPERCHAT' && <span style={{ marginLeft: 6 }}>💰 ${Number(msg.amount).toFixed(2)}</span>}
+                  {msg.type === 'SUPERCHAT' && <span className="ml-8">💰 ${Number(msg.amount).toFixed(2)}</span>}
                 </div>
-                <div style={{ fontSize: 13 }}>{msg.message}</div>
+                <div className="text-sm">{msg.message}</div>
               </div>
             ))}
             <div ref={chatEndRef} />
           </div>
 
-          <form onSubmit={sendChat} style={{ padding: 12, borderTop: '1px solid var(--color-border-2)', display: 'flex', gap: 8 }}>
+          <form onSubmit={sendChat} className="flex gap-8 p-12 border-t border-color-border-2">
             <input
               id="chat-input"
-              className="input"
-              style={{ fontSize: 13 }}
+              className="input text-xs"
               placeholder="Send a message..."
               value={chatInput}
               onChange={e => setChatInput(e.target.value)}
