@@ -34,6 +34,7 @@ export default function WatchPage() {
   const [chatInput, setChatInput]     = useState('');
   const [metrics, setMetrics]         = useState<{ bitrate?: number; fps?: number }>({});
   const [superchatAmount, setSuperchatAmount] = useState('');
+  const [captions, setCaptions]       = useState<Array<{text: string, timestamp: number}>>([]);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const socketRef  = useRef<unknown>(null);
 
@@ -56,6 +57,12 @@ export default function WatchPage() {
       socket.on('chat:history',  (msgs: ChatMessage[]) => setChatMessages(msgs));
       socket.on('presence:count', ({ count }: { count: number }) => setViewerCount(count));
       socket.on('stream:metrics', setMetrics);
+      socket.on('stream:subtitle', (subtitle: { text: string; timestamp: number }) => {
+        setCaptions((prev: Array<{text: string, timestamp: number}>) => {
+          const newCaptions = [...prev, subtitle];
+          return newCaptions.slice(-3); // keep only last 3 captions
+        });
+      });
 
       socket.emit('chat:history');
       socket.emit('presence:count');
@@ -120,7 +127,7 @@ export default function WatchPage() {
         {/* Video area */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           {/* VDO.Ninja viewer */}
-          <div style={{ flex: 1, background: '#000', minHeight: 0 }}>
+          <div style={{ flex: 1, background: '#000', minHeight: 0, position: 'relative' }}>
             {stage.roomId && stage.status === 'LIVE' ? (
               <iframe
                 src={`${VDO_NINJA_BASE}/?room=${stage.roomId}&view&scene&cleanish`}
@@ -140,6 +147,26 @@ export default function WatchPage() {
                   {stage.status === 'UPCOMING' ? 'Stream hasn\'t started yet' :
                    stage.status === 'ENDED'    ? 'Stream has ended' : 'Waiting for stream...'}
                 </div>
+              </div>
+            )}
+            
+            {/* Live Captions Layer */}
+            {captions.length > 0 && (
+              <div style={{
+                position: 'absolute', bottom: 40, left: 0, width: '100%',
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                pointerEvents: 'none', gap: 4, zIndex: 10
+              }}>
+                {captions.map((c, i) => (
+                  <div key={c.timestamp} style={{
+                    background: 'rgba(0,0,0,0.75)', color: 'white',
+                    padding: '6px 12px', borderRadius: 4, fontSize: 18,
+                    fontWeight: 600, textShadow: '1px 1px 2px black',
+                    opacity: 1 - ((captions.length - 1 - i) * 0.25)
+                  }}>
+                    {c.text}
+                  </div>
+                ))}
               </div>
             )}
           </div>
