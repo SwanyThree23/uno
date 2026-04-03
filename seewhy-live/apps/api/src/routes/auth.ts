@@ -1,7 +1,7 @@
 // src/routes/auth.ts
 // Authentication: register, login, refresh, logout, verify email, password reset
 
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '../lib/prisma.js';
@@ -38,7 +38,7 @@ const ResetPasswordSchema = z.object({
 });
 
 // POST /api/auth/register
-router.post('/register', authLimiter, validate(RegisterSchema), async (req, res) => {
+router.post('/register', authLimiter, validate(RegisterSchema), async (req: Request, res: Response) => {
   const { displayName, username, email, password } = req.body as z.infer<typeof RegisterSchema>;
 
   const exists = await prisma.user.findFirst({
@@ -73,7 +73,7 @@ router.post('/register', authLimiter, validate(RegisterSchema), async (req, res)
 });
 
 // POST /api/auth/login
-router.post('/login', authLimiter, validate(LoginSchema), async (req, res) => {
+router.post('/login', authLimiter, validate(LoginSchema), async (req: Request, res: Response) => {
   const { email, password } = req.body as z.infer<typeof LoginSchema>;
 
   const user = await prisma.user.findUnique({ where: { email } });
@@ -102,7 +102,7 @@ router.post('/login', authLimiter, validate(LoginSchema), async (req, res) => {
 });
 
 // POST /api/auth/refresh
-router.post('/refresh', validate(RefreshSchema), async (req, res) => {
+router.post('/refresh', validate(RefreshSchema), async (req: Request, res: Response) => {
   const { refreshToken } = req.body as z.infer<typeof RefreshSchema>;
 
   const result = await rotateRefreshToken(refreshToken);
@@ -115,7 +115,7 @@ router.post('/refresh', validate(RefreshSchema), async (req, res) => {
 });
 
 // POST /api/auth/logout
-router.post('/logout', authenticate, async (req, res) => {
+router.post('/logout', authenticate, async (req: Request, res: Response) => {
   const { refreshToken } = req.body as { refreshToken?: string };
   if (refreshToken) {
     await revokeRefreshToken(refreshToken);
@@ -124,13 +124,13 @@ router.post('/logout', authenticate, async (req, res) => {
 });
 
 // POST /api/auth/logout-all
-router.post('/logout-all', authenticate, async (req, res) => {
+router.post('/logout-all', authenticate, async (req: Request, res: Response) => {
   await revokeAllUserTokens(req.user!.id);
   res.json({ message: 'All sessions terminated' });
 });
 
 // GET /api/auth/verify-email
-router.get('/verify-email', async (req, res) => {
+router.get('/verify-email', async (req: Request, res: Response) => {
   const { token } = req.query as { token?: string };
   if (!token) {
     res.status(400).json({ error: 'Token required' });
@@ -152,7 +152,7 @@ router.get('/verify-email', async (req, res) => {
 });
 
 // POST /api/auth/forgot-password
-router.post('/forgot-password', authLimiter, validate(ForgotPasswordSchema), async (req, res) => {
+router.post('/forgot-password', authLimiter, validate(ForgotPasswordSchema), async (req: Request, res: Response) => {
   const { email } = req.body as z.infer<typeof ForgotPasswordSchema>;
 
   const user = await prisma.user.findUnique({ where: { email } });
@@ -171,7 +171,7 @@ router.post('/forgot-password', authLimiter, validate(ForgotPasswordSchema), asy
 });
 
 // POST /api/auth/reset-password
-router.post('/reset-password', authLimiter, validate(ResetPasswordSchema), async (req, res) => {
+router.post('/reset-password', authLimiter, validate(ResetPasswordSchema), async (req: Request, res: Response) => {
   const { token, newPassword } = req.body as z.infer<typeof ResetPasswordSchema>;
 
   const user = await prisma.user.findFirst({
@@ -199,7 +199,7 @@ router.post('/reset-password', authLimiter, validate(ResetPasswordSchema), async
 });
 
 // GET /api/auth/me
-router.get('/me', authenticate, async (req, res) => {
+router.get('/me', authenticate, async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({
     where: { id: req.user!.id },
     select: {

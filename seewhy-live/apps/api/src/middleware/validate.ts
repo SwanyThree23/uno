@@ -14,7 +14,7 @@ export function validate(schema: ZodSchema, part: RequestPart = 'body') {
   return (req: Request, res: Response, next: NextFunction): void => {
     const result = schema.safeParse(req[part]);
     if (!result.success) {
-      const errors = (result.error as ZodError).errors.map(e => ({
+      const errors = (result.error as ZodError).errors.map((e: any) => ({
         field:   e.path.join('.'),
         message: e.message,
       }));

@@ -2,7 +2,7 @@
 // Creator subscription tiers: BRONZE ($1), SILVER ($5), GOLD ($15)
 // 90/10 split enforced via Stripe application_fee_percent
 
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import { prisma } from '../lib/prisma.js';
 import { authenticate } from '../middleware/auth.js';
@@ -29,7 +29,7 @@ const SubscribeSchema = z.object({
 });
 
 // POST /api/subscriptions/subscribe
-router.post('/subscribe', authenticate, paymentLimiter, validate(SubscribeSchema), async (req, res) => {
+router.post('/subscribe', authenticate, paymentLimiter, validate(SubscribeSchema), async (req: Request, res: Response) => {
   const { creatorId, tier, paymentMethodId } = req.body as z.infer<typeof SubscribeSchema>;
 
   const creator = await prisma.user.findUnique({ where: { id: creatorId } });
@@ -91,7 +91,7 @@ router.post('/subscribe', authenticate, paymentLimiter, validate(SubscribeSchema
 });
 
 // DELETE /api/subscriptions/:creatorId/:tier
-router.delete('/:creatorId/:tier', authenticate, async (req, res) => {
+router.delete('/:creatorId/:tier', authenticate, async (req: Request, res: Response) => {
   const { creatorId, tier } = req.params as { creatorId: string; tier: string };
 
   const sub = await prisma.subscription.findUnique({
@@ -113,7 +113,7 @@ router.delete('/:creatorId/:tier', authenticate, async (req, res) => {
 });
 
 // GET /api/subscriptions/my-subscriptions
-router.get('/my-subscriptions', authenticate, async (req, res) => {
+router.get('/my-subscriptions', authenticate, async (req: Request, res: Response) => {
   const subs = await prisma.subscription.findMany({
     where:   { subscriberId: req.user!.id, status: 'ACTIVE' },
     include: { creator: { select: { id: true, displayName: true, username: true, avatarUrl: true } } },
@@ -122,7 +122,7 @@ router.get('/my-subscriptions', authenticate, async (req, res) => {
 });
 
 // GET /api/subscriptions/my-subscribers
-router.get('/my-subscribers', authenticate, async (req, res) => {
+router.get('/my-subscribers', authenticate, async (req: Request, res: Response) => {
   const subs = await prisma.subscription.findMany({
     where:   { creatorId: req.user!.id, status: 'ACTIVE' },
     include: { subscriber: { select: { id: true, displayName: true, username: true, avatarUrl: true } } },
@@ -131,7 +131,7 @@ router.get('/my-subscribers', authenticate, async (req, res) => {
 });
 
 // POST /api/subscriptions/webhook
-router.post('/webhook', async (req, res) => {
+router.post('/webhook', async (req: Request, res: Response) => {
   const sig = req.headers['stripe-signature'] as string;
   let event: Stripe.Event;
 
