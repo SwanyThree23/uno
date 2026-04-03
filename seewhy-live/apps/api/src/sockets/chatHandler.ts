@@ -6,6 +6,7 @@ import { prisma } from '../lib/prisma.js';
 import { redis } from '../lib/redis.js';
 import { verifyAccessToken } from '../lib/jwt.js';
 import { logger } from '../lib/logger.js';
+import { moderateChatMessage } from '../lib/ai.js';
 
 interface ChatEvent {
   message: string;
@@ -41,6 +42,16 @@ export function registerChatHandler(io: Server, socket: Socket): void {
 
       const message = String(event.message || '').trim().slice(0, 500);
       if (!message) return;
+
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      if (!user) return;
+
+      // AI Moderation Pass
+      const moderation = await moderateChatMessage(message, user.username);
+      if (!moderation.isSafe) {
+        socket.emit('error', { code: 'CONTENT_BLOCKED', message: moderation.reason || 'Message blocked by moderation rules.' });
+        return;
+      }
 
       const type = event.type === 'SUPERCHAT' ? 'SUPERCHAT' : 'CHAT';
 
