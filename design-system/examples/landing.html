@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeeWhy LIVE - Stream to 20+ Platforms Simultaneously</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Lora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+
+  <style>
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 70%;
+      height: 120%;
+      background: radial-gradient(circle, rgba(204, 119, 85, 0.15) 0%, transparent 60%);
+      filter: blur(60px);
+      animation: blob 25s infinite alternate;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 50%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(128, 0, 32, 0.1) 0%, transparent 60%);
+      filter: blur(80px);
+      animation: blob 30s infinite alternate-reverse;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: var(--space-6);
+    }
+
+    .platform-icons {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-top: var(--space-8);
+    }
+
+    .platform-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      font-size: var(--text-xl);
+      transition: all var(--transition-normal) var(--ease-bounce);
+    }
+
+    .platform-icon:hover {
+      transform: translateY(-4px) scale(1.1);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-8);
+    }
+
+    .feature-card {
+      background: var(--white);
+      padding: var(--space-8);
+      border-radius: var(--radius-2xl);
+      border: 1px solid var(--sand);
+      transition: all var(--transition-normal);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--terracotta);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--terracotta-light), var(--terracotta));
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: var(--space-5);
+      box-shadow: var(--shadow-terracotta);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: var(--space-4) var(--space-6);
+      text-align: left;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .comparison-table th {
+      background: var(--charcoal);
+      color: var(--cream);
+      font-family: var(--font-ui);
+      font-weight: var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wider);
+      font-size: var(--text-sm);
+    }
+
+    .comparison-table th:first-child {
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+      color: var(--gold);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table tr:hover td {
+      background: var(--gold-light);
+    }
+
+    .checkmark {
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .xmark {
+      color: var(--error);
+    }
+
+    .revenue-highlight {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-extrabold);
+      color: var(--success);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    .pricing-card {
+      background: var(--white);
+      padding: var(--space-8);
+      border-radius: var(--radius-2xl);
+      border: 2px solid var(--sand);
+      text-align: center;
+      transition: all var(--transition-normal);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--terracotta);
+      background: linear-gradient(to bottom, var(--gold-light) 0%, var(--white) 100%);
+      position: relative;
+    }
+
+    .pricing-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--terracotta);
+      color: var(--cream);
+      padding: var(--space-1) var(--space-4);
+      border-radius: var(--radius-full);
+      font-family: var(--font-ui);
+      font-size: var(--text-xs);
+      font-weight: var(--font-bold);
+      letter-spacing: var(--tracking-wider);
+    }
+
+    .pricing-price {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: var(--font-extrabold);
+      color: var(--charcoal);
+    }
+
+    .pricing-price span {
+      font-size: var(--text-lg);
+      font-weight: var(--font-normal);
+      color: var(--clay);
+    }
+
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-6) 0;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: var(--space-2) 0;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+      color: var(--cream);
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: var(--cream);
+    }
+
+    @media (max-width: 768px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .platform-icons {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body class="bg-cream">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#" class="navbar__logo">SeeWhy LIVE</a>
+      <div class="navbar__nav">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#compare" class="nav-link">Compare</a>
+        <a href="index.html" class="nav-link">Design System</a>
+        <a href="#" class="btn btn-primary">Start Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero bg-gradient-warm">
+    <div class="container">
+      <div class="hero-content" style="max-width: 700px;">
+        <span class="text-overline animate animate-fade-in">Industry First Technology</span>
+        <h1 class="hero-title animate animate-fade-in-up stagger-1">
+          Stream to 20+ Platforms<br>
+          <span class="text-premium">Simultaneously</span>
+        </h1>
+        <p class="body-lg text-earth-brown mb-8 animate animate-fade-in-up stagger-2" style="max-width: 550px;">
+          The only platform where each guest streams to THEIR platforms.
+          <strong>90% creator revenue.</strong> No virtual currency nonsense.
+        </p>
+        <div class="flex gap-4 flex-wrap animate animate-fade-in-up stagger-3">
+          <a href="#" class="btn btn-primary btn-lg">Start Streaming Free</a>
+          <a href="#" class="btn btn-secondary btn-lg">Watch Demo</a>
+        </div>
+
+        <div class="platform-icons animate animate-fade-in-up stagger-4">
+          <div class="platform-icon">📺</div>
+          <div class="platform-icon">🎮</div>
+          <div class="platform-icon">📘</div>
+          <div class="platform-icon">📸</div>
+          <div class="platform-icon">🎵</div>
+          <div class="platform-icon">👻</div>
+          <div class="platform-icon">💼</div>
+          <div class="platform-icon">✖️</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-24 bg-organic">
+    <div class="container">
+      <div class="text-center mb-16">
+        <span class="text-overline">Revolutionary Features</span>
+        <h2 class="mt-4">Built for Creators, By Creators</h2>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card animate animate-fade-in-up">
+          <div class="feature-icon">🚀</div>
+          <h4 class="mb-3">Guest Destinations</h4>
+          <p class="text-clay">Each guest streams to THEIR platforms. 9-guest panel = 30+ platforms reached. Industry first!</p>
+        </div>
+
+        <div class="feature-card animate animate-fade-in-up stagger-1">
+          <div class="feature-icon">💰</div>
+          <h4 class="mb-3">90% Revenue Share</h4>
+          <p class="text-clay">Keep what you earn. Direct payments, transparent fees. No virtual currency or confusing conversion rates.</p>
+        </div>
+
+        <div class="feature-card animate animate-fade-in-up stagger-2">
+          <div class="feature-icon">⚡</div>
+          <h4 class="mb-3">Sub-200ms Latency</h4>
+          <p class="text-clay">Real-time interaction with your audience. WebRTC-powered for true live conversation.</p>
+        </div>
+
+        <div class="feature-card animate animate-fade-in-up stagger-3">
+          <div class="feature-icon">🛡️</div>
+          <h4 class="mb-3">Guardian AI</h4>
+          <p class="text-clay">3-layer AI moderation with Claude, Llama 3.1, and keyword filtering. Stay safe automatically.</p>
+        </div>
+
+        <div class="feature-card animate animate-fade-in-up stagger-4">
+          <div class="feature-icon">🌐</div>
+          <h4 class="mb-3">Viral Embeds</h4>
+          <p class="text-clay">Viewers watch on Instagram, Facebook, TikTok without downloading our app. Go viral anywhere.</p>
+        </div>
+
+        <div class="feature-card animate animate-fade-in-up stagger-5">
+          <div class="feature-icon">🤖</div>
+          <h4 class="mb-3">Smart Director</h4>
+          <p class="text-clay">AI automatically switches scenes based on who's speaking. Hands-free production quality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Revenue Comparison -->
+  <section id="compare" class="py-24 bg-sand">
+    <div class="container">
+      <div class="text-center mb-16">
+        <span class="text-overline">Why Choose Us</span>
+        <h2 class="mt-4">Keep More of What You Earn</h2>
+      </div>
+
+      <div style="max-width: 900px; margin: 0 auto;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Creator Revenue</th>
+              <th>Guest Destinations</th>
+              <th>Direct Payments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color: var(--terracotta);">SeeWhy LIVE</strong></td>
+              <td><span class="revenue-highlight">90%</span></td>
+              <td><span class="checkmark">✓</span></td>
+              <td><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td>Bigo Live</td>
+              <td>~50%</td>
+              <td><span class="xmark">✗</span></td>
+              <td><span class="xmark">✗</span></td>
+            </tr>
+            <tr>
+              <td>Twitch</td>
+              <td>50-70%</td>
+              <td><span class="xmark">✗</span></td>
+              <td><span class="xmark">✗</span></td>
+            </tr>
+            <tr>
+              <td>YouTube Live</td>
+              <td>~55%</td>
+              <td><span class="xmark">✗</span></td>
+              <td><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td>TikTok Live</td>
+              <td>~50%</td>
+              <td><span class="xmark">✗</span></td>
+              <td><span class="xmark">✗</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-24">
+    <div class="container">
+      <div class="text-center mb-16">
+        <span class="text-overline">Simple Pricing</span>
+        <h2 class="mt-4">Start Free, Upgrade When Ready</h2>
+      </div>
+
+      <div class="pricing-grid" style="max-width: 1100px; margin: 0 auto;">
+        <!-- Free Tier -->
+        <div class="pricing-card">
+          <h4 class="mb-2">Free</h4>
+          <p class="text-clay mb-4">Perfect for getting started</p>
+          <div class="pricing-price mb-6">$0<span>/mo</span></div>
+          <ul class="pricing-features">
+            <li>Up to 3 guests per stream</li>
+            <li>Basic analytics</li>
+            <li>Standard quality (720p)</li>
+            <li>Community support</li>
+          </ul>
+          <button class="btn btn-secondary w-full">Get Started</button>
+        </div>
+
+        <!-- Pro Tier -->
+        <div class="pricing-card featured">
+          <h4 class="mb-2">Pro</h4>
+          <p class="text-clay mb-4">For growing creators</p>
+          <div class="pricing-price mb-6">$14.99<span>/mo</span></div>
+          <ul class="pricing-features">
+            <li>Up to 9 guests per stream</li>
+            <li><strong>Guest Destinations (1 per guest)</strong></li>
+            <li>Advanced analytics</li>
+            <li>HD quality (1080p)</li>
+            <li>Priority support</li>
+            <li>Custom branding</li>
+          </ul>
+          <button class="btn btn-primary w-full">Upgrade to Pro</button>
+        </div>
+
+        <!-- Business Tier -->
+        <div class="pricing-card">
+          <h4 class="mb-2">Business</h4>
+          <p class="text-clay mb-4">For professionals</p>
+          <div class="pricing-price mb-6">$49.99<span>/mo</span></div>
+          <ul class="pricing-features">
+            <li>Up to 16 guests per stream</li>
+            <li><strong>Unlimited Guest Destinations</strong></li>
+            <li>Full API access</li>
+            <li>4K quality support</li>
+            <li>Dedicated support</li>
+            <li>White-label embeds</li>
+            <li>Team collaboration</li>
+          </ul>
+          <button class="btn btn-premium w-full">Contact Sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section py-24">
+    <div class="container">
+      <h2 class="mb-4">Ready to Keep 90% of Your Earnings?</h2>
+      <p class="body-lg opacity-75 mb-8" style="max-width: 500px; margin-left: auto; margin-right: auto;">
+        Join thousands of creators who switched to SeeWhy LIVE for better revenue and Guest Destinations.
+      </p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="#" class="btn btn-lg" style="background: var(--gold); color: var(--burgundy); border-color: var(--gold-dark);">
+          Start Streaming Free
+        </a>
+        <a href="#" class="btn btn-lg" style="background: transparent; color: var(--cream); border-color: var(--cream);">
+          Schedule Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-charcoal text-cream py-16">
+    <div class="container">
+      <div class="grid grid-cols-4 gap-8 mb-12">
+        <div>
+          <h5 class="text-gold mb-4">SeeWhy LIVE</h5>
+          <p class="body-sm opacity-75">The future of live streaming. 90% creator revenue. Industry-first Guest Destinations.</p>
+        </div>
+        <div>
+          <h6 class="text-label text-cream mb-4">Product</h6>
+          <ul style="list-style: none; padding: 0;">
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">Features</a></li>
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">Pricing</a></li>
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">API</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="text-label text-cream mb-4">Company</h6>
+          <ul style="list-style: none; padding: 0;">
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">About</a></li>
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">Blog</a></li>
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="text-label text-cream mb-4">Legal</h6>
+          <ul style="list-style: none; padding: 0;">
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">Privacy</a></li>
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">Terms</a></li>
+            <li class="mb-2"><a href="#" class="opacity-75 hover:opacity-100">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-earth-brown pt-8 text-center">
+        <p class="body-sm opacity-50">Built with love for creators who deserve 90% of their earnings.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+/**
+ * SeeWhy LIVE Design System - Main Entry Point
+ * Version: 1.0.0
+ *
+ * Earth-toned, warm, creator-friendly aesthetic
+ * Primary: Terracotta (#CC7755)
+ * Accent: Burgundy (#800020)
+ * Highlight: Gold (#FFD700)
+ * Background: Cream (#F5F5DC)
+ *
+ * Import this file to get the complete design system.
+ */
+
+/* CSS Variables (colors, typography, spacing, etc.) */
+@import 'variables.css';
+
+/* Modern CSS Reset */
+@import 'reset.css';
+
+/* Typography styles */
+@import 'typography.css';
+
+/* Component styles */
+@import 'components.css';
+
+/* Animations and transitions */
+@import 'animations.css';
+
+/* Utility classes */
+@import 'utilities.css';

@@ -1,1 +1,40 @@
+<<<<<<< .merge_file_ohKPgi
 node_modules
+=======
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+*.db-journal
+
+# Prisma generated client
+prisma/generated/
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+>>>>>>> .merge_file_jEd75M
