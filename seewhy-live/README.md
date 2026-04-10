@@ -2,10 +2,10 @@
 
 > **The creator-first live streaming platform** by SwanyThree EntTech
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-violet.svg)]()
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)]()
-[![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)]()
-[![Node.js](https://img.shields.io/badge/Node.js-20-green.svg)]()
+![License: MIT](https://img.shields.io/badge/License-MIT-violet.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)
+![Node.js](https://img.shields.io/badge/Node.js-20-green.svg)
 
 ---
 
@@ -24,7 +24,7 @@ SeeWhy LIVE is a production-grade live streaming and creator monetization platfo
 
 ## Monorepo Structure
 
-```
+```text
 seewhy-live/
 ├── apps/
 │   ├── api/          # Node.js + Express + Prisma backend
@@ -46,6 +46,7 @@ seewhy-live/
 ## Quick Start
 
 ### Prerequisites
+
 - Node.js 20+
 - Docker & Docker Compose
 - OpenSSL (for JWT key generation)
@@ -67,17 +68,18 @@ cd apps/web && npm run dev
 ```
 
 The app will be available at:
-- **Frontend**: http://localhost:3000
-- **API**: http://localhost:3001
-- **Health Check**: http://localhost:3001/health
+
+- **Frontend**: <http://localhost:3000>
+- **API**: <http://localhost:3001>
+- **Health Check**: <http://localhost:3001/health>
 
 ### Test Accounts (after seeding)
 
 | Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@seewhylive.com | Admin1234! |
-| Creator | maya@example.com | Creator1234! |
-| Viewer | viewer@example.com | Viewer1234! |
+| ------ | ------- | ---------- |
+| Admin | <admin@seewhylive.com> | Admin1234! |
+| Creator | <maya@example.com> | Creator1234! |
+| Viewer | <viewer@example.com> | Viewer1234! |
 
 ---
 
@@ -86,7 +88,7 @@ The app will be available at:
 ### Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
+| ------- | ----------- |
 | Frontend | Next.js 15, TypeScript, TailwindCSS v4, Framer Motion |
 | Backend | Express 5, TypeScript, Socket.io |
 | Database | PostgreSQL 15 + Prisma ORM |
@@ -107,6 +109,7 @@ The app will be available at:
 ### WebRTC Architecture
 
 SeeWhy LIVE uses **VDO.Ninja** for multi-guest WebRTC rooms:
+
 - Creator opens studio → stage generates a unique HMAC `roomId`
 - Guests join via `vdo.ninja/?room={roomId}&view`
 - Viewers watch via `vdo.ninja/?room={roomId}&scene`
@@ -115,6 +118,7 @@ SeeWhy LIVE uses **VDO.Ninja** for multi-guest WebRTC rooms:
 ### Real-time Features (Socket.io)
 
 Each stage has 3 namespaced channels:
+
 - `stage:{id}:chat` — live chat & superchats
 - `stage:{id}:presence` — viewer count (Redis Set)
 - `stage:{id}:stream` — health metrics (bitrate, FPS, latency)
@@ -127,8 +131,9 @@ Socket.io uses a Redis adapter for horizontal scaling.
 
 See [`docs/API.md`](./docs/API.md) for full reference.
 
-### Key endpoints:
-```
+### Key endpoints
+
+```text
 POST /api/auth/register        — Create account
 POST /api/auth/login           — Get JWT tokens
 POST /api/auth/refresh         — Rotate refresh token
@@ -148,6 +153,7 @@ GET  /api/analytics/dashboard  — Creator stats
 See [`docs/ENVIRONMENT.md`](./docs/ENVIRONMENT.md) for full documentation.
 
 Critical variables:
+
 ```env
 DATABASE_URL=postgresql://seewhy:dev_password@localhost:5432/seewhy_live
 REDIS_URL=redis://localhost:6379
@@ -197,6 +203,7 @@ docker compose exec api npx prisma migrate deploy
 ```
 
 ### Kubernetes
+
 Kubernetes manifests are in `infrastructure/k8s/` (coming in Phase 4).
 
 ---
