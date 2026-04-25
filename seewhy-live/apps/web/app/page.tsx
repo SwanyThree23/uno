@@ -112,27 +112,18 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main style={{ overflowX: 'hidden' }}>
+    <main className="overflow-x-hidden">
       {/* ─── NAV ──────────────────────────────────────────────────────── */}
-      <nav
-        style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-          padding: '0 24px',
-          background: scrollY > 50 ? 'rgba(9,9,18,0.95)' : 'transparent',
-          backdropFilter: scrollY > 50 ? 'blur(20px)' : 'none',
-          borderBottom: scrollY > 50 ? '1px solid rgba(139,92,246,0.1)' : 'none',
-          transition: 'all 0.3s',
-        }}
-      >
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <Link href="/" style={{ textDecoration: 'none' }}>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 22, color: 'var(--color-text)' }}>
+      <nav className={`fixed top-0 left-0 right-0 z-100 px-24 transition-all duration-300 ${scrollY > 50 ? 'nav-scrolled' : 'bg-transparent'}`}>
+        <div className="container flex items-center justify-between h-64">
+          <Link href="/" className="no-underline">
+            <span className="font-space-grotesk font-black text-2xl color-text">
               SeeWhy{' '}
               <span className="gradient-text">LIVE</span>
             </span>
           </Link>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div className="flex items-center gap-8">
             <Link href="/sign-in" className="btn btn-ghost btn-sm">Sign In</Link>
             <Link href="/sign-up" className="btn btn-primary btn-sm">Start Creating</Link>
           </div>
@@ -140,38 +131,12 @@ export default function HomePage() {
       </nav>
 
       {/* ─── HERO ──────────────────────────────────────────────────────── */}
-      <section
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          padding: '120px 24px 80px',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
+      <section className="h-screen flex items-center justify-center text-center px-24 relative overflow-hidden py-120">
         {/* Animated background orbs */}
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-          <div style={{
-            position: 'absolute', top: '10%', left: '20%',
-            width: 400, height: 400, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(139,92,246,0.15), transparent 70%)',
-            animation: 'float1 8s ease-in-out infinite',
-          }} />
-          <div style={{
-            position: 'absolute', top: '40%', right: '15%',
-            width: 300, height: 300, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(6,182,212,0.15), transparent 70%)',
-            animation: 'float2 10s ease-in-out infinite',
-          }} />
-          <div style={{
-            position: 'absolute', bottom: '10%', left: '40%',
-            width: 350, height: 350, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(236,72,153,0.1), transparent 70%)',
-            animation: 'float3 12s ease-in-out infinite',
-          }} />
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute" style={{ top: '10%', left: '20%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.15), transparent 70%)', animation: 'float1 8s ease-in-out infinite' }} />
+          <div className="absolute" style={{ top: '40%', right: '15%', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.15), transparent 70%)', animation: 'float2 10s ease-in-out infinite' }} />
+          <div className="absolute" style={{ bottom: '10%', left: '40%', width: 350, height: 350, borderRadius: '50%', background: 'radial-gradient(circle, rgba(236,72,153,0.1), transparent 70%)', animation: 'float3 12s ease-in-out infinite' }} />
         </div>
 
         <style>{`
@@ -180,30 +145,24 @@ export default function HomePage() {
           @keyframes float3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,30px)} }
         `}</style>
 
-        <div style={{ position: 'relative', maxWidth: 800 }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.3)',
-            borderRadius: 'var(--radius-full)', padding: '6px 16px',
-            marginBottom: 24, fontSize: 13, color: 'var(--color-brand-violet)',
-            fontWeight: 600,
-          }}>
+        <div className="relative max-w-800 mx-auto">
+          <div className="inline-flex items-center gap-8 bg-brand-light border-brand-light rounded-full px-16 mb-24 text-xs color-brand-violet font-semibold py-8">
             <span className="live-dot" style={{ background: 'var(--color-brand-violet)' }} />
             Powered by SwanyThree EntTech
           </div>
 
-          <h1 style={{ fontSize: 'clamp(40px, 7vw, 80px)', fontWeight: 900, lineHeight: 1.1, marginBottom: 24 }}>
+          <h1 className="font-black leading-tight mb-24 text-8xl">
             Stream Live.{' '}
             <span className="gradient-text">Earn More.</span>
             <br />Keep 90%.
           </h1>
 
-          <p style={{ fontSize: 18, color: 'var(--color-text-muted)', maxWidth: 600, margin: '0 auto 40px', lineHeight: 1.7 }}>
+          <p className="text-lg color-text-muted max-w-600 mx-auto mb-40 leading-relaxed">
             SeeWhy LIVE is the creator-first streaming platform with multi-guest rooms,
             AI transcription, and the industry&apos;s best revenue split — you keep 90%, always.
           </p>
 
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div className="flex gap-12 justify-center flex-wrap">
             <Link href="/sign-up" className="btn btn-primary btn-lg">
               🚀 Start Streaming Free
             </Link>
@@ -213,26 +172,24 @@ export default function HomePage() {
           </div>
 
           {/* Mini feature pills */}
-          <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', marginTop: 40 }}>
+          <div className="flex gap-8 justify-center flex-wrap mt-40">
             {['✅ No credit card required', '✅ 90% revenue share', '✅ Free for creators'].map(f => (
-              <span key={f} style={{
-                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 'var(--radius-full)', padding: '5px 14px', fontSize: 13,
-                color: 'var(--color-text-muted)',
-              }}>{f}</span>
+              <span key={f} className="bg-transparent border-brand-light rounded-full px-14 py-4 text-xs color-text-muted">
+                {f}
+              </span>
             ))}
           </div>
         </div>
       </section>
 
       {/* ─── STATS ─────────────────────────────────────────────────────── */}
-      <section style={{ padding: '60px 24px', background: 'var(--color-surface)' }}>
+      <section className="py-60 px-24 bg-surface">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 1, background: 'var(--color-border-2)' }}>
+          <div className="grid grid-cols-4 gap-4 bg-border-light">
             {STATS.map(({ value, suffix, label }) => {
               const { count, ref } = useCounter(value);
               return (
-                <div key={label} ref={ref} style={{ background: 'var(--color-surface)', padding: '32px', textAlign: 'center' }}>
+                <div key={label} ref={ref} className="bg-surface p-32 text-center">
                   <div className="stat-value gradient-text">
                     {count}{suffix}
                   </div>
@@ -245,30 +202,29 @@ export default function HomePage() {
       </section>
 
       {/* ─── FEATURES ──────────────────────────────────────────────────── */}
-      <section id="features" className="section" style={{ padding: '80px 24px' }}>
+      <section id="features" className="py-80 px-24">
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <h2 style={{ fontSize: 'clamp(28px, 5vw, 48px)', marginBottom: 16 }}>
+          <div className="text-center mb-64">
+            <h2 className="text-5xl mb-16">
               Everything you need to{' '}
               <span className="gradient-text">go live & earn</span>
             </h2>
-            <p style={{ color: 'var(--color-text-muted)', fontSize: 18, maxWidth: 600, margin: '0 auto' }}>
+            <p className="color-text-muted text-lg max-w-600 mx-auto">
               Professional streaming tools that previously cost thousands — now at your fingertips.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
+          <div className="grid grid-cols-3 gap-24">
             {FEATURES.map(({ icon, title, desc, color }) => (
-              <div key={title} className="card gradient-border" style={{ cursor: 'default' }}>
-                <div style={{
-                  width: 48, height: 48, borderRadius: 12,
-                  background: `${color}20`, display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', fontSize: 24, marginBottom: 16,
-                }}>
+              <div key={title} className="card gradient-border cursor-default">
+                <div 
+                  className="flex items-center justify-center text-2xl mb-16"
+                  style={{ width: 48, height: 48, borderRadius: 12, background: `${color}20` }}
+                >
                   {icon}
                 </div>
-                <h3 style={{ fontSize: 18, marginBottom: 8 }}>{title}</h3>
-                <p style={{ color: 'var(--color-text-muted)', fontSize: 14, lineHeight: 1.6 }}>{desc}</p>
+                <h3 className="text-lg mb-8">{title}</h3>
+                <p className="color-text-muted text-sm leading-normal">{desc}</p>
               </div>
             ))}
           </div>
@@ -276,31 +232,26 @@ export default function HomePage() {
       </section>
 
       {/* ─── REVENUE CTA ────────────────────────────────────────────────── */}
-      <section style={{
-        padding: '80px 24px',
-        background: 'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(6,182,212,0.05))',
-        borderTop: '1px solid rgba(139,92,246,0.1)',
-        borderBottom: '1px solid rgba(139,92,246,0.1)',
-      }}>
-        <div className="container" style={{ textAlign: 'center', maxWidth: 700, margin: '0 auto' }}>
-          <div style={{ fontSize: 64, marginBottom: 16 }}>💰</div>
-          <h2 style={{ fontSize: 'clamp(28px, 5vw, 48px)', marginBottom: 16 }}>
+      <section className="py-80 px-24 bg-brand-light border-t-brand-light border-b-brand-light">
+        <div className="container text-center max-w-700 mx-auto">
+          <div className="text-6xl mb-16">💰</div>
+          <h2 className="text-5xl mb-16">
             The industry&apos;s best{' '}
             <span className="gradient-text">revenue split</span>
           </h2>
-          <p style={{ color: 'var(--color-text-muted)', fontSize: 18, marginBottom: 40, lineHeight: 1.7 }}>
+          <p className="color-text-muted text-lg mb-40 leading-relaxed">
             While other platforms take 30-50%, SeeWhy LIVE only takes 10%.
             That means if you earn $10,000 a month, you keep $9,000 — not $5,000.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, alignItems: 'center', maxWidth: 500, margin: '0 auto 40px' }}>
-            <div className="card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 32, fontWeight: 800, color: 'var(--color-success)' }}>90%</div>
-              <div style={{ color: 'var(--color-text-muted)', fontSize: 13 }}>Goes to you</div>
+          <div className="grid grid-cols-3 gap-24 items-center max-w-500 mx-auto mb-40">
+            <div className="card text-center">
+              <div className="text-3xl font-extrabold color-success">90%</div>
+              <div className="color-text-muted text-xs">Goes to you</div>
             </div>
-            <div style={{ color: 'var(--color-text-dim)', fontSize: 24 }}>vs</div>
-            <div className="card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 32, fontWeight: 800, color: 'var(--color-text-dim)' }}>10%</div>
-              <div style={{ color: 'var(--color-text-muted)', fontSize: 13 }}>Platform fee</div>
+            <div className="color-text-dim text-2xl">vs</div>
+            <div className="card text-center">
+              <div className="text-3xl font-extrabold color-text-dim">10%</div>
+              <div className="color-text-muted text-xs">Platform fee</div>
             </div>
           </div>
           <Link href="/sign-up" className="btn btn-primary btn-lg">
@@ -310,37 +261,33 @@ export default function HomePage() {
       </section>
 
       {/* ─── SUBSCRIPTION TIERS ─────────────────────────────────────────── */}
-      <section style={{ padding: '80px 24px' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(28px, 5vw, 48px)', marginBottom: 16 }}>
+      <section className="py-80 px-24">
+        <div className="container text-center">
+          <h2 className="text-5xl mb-16">
             Creator <span className="gradient-text">Subscription Tiers</span>
           </h2>
-          <p style={{ color: 'var(--color-text-muted)', fontSize: 18, marginBottom: 48 }}>
+          <p className="color-text-muted text-lg mb-48">
             Set up subscription tiers for your superfans. You always keep 90%.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, maxWidth: 900, margin: '0 auto' }}>
+          <div className="grid grid-cols-3 gap-24 max-w-900 mx-auto">
             {TIERS.map(({ name, price, period, color, features, featured }) => (
-              <div key={name} className="card" style={{
+              <div key={name} className="card relative" style={{
                 border: featured ? `1px solid ${color}50` : undefined,
                 transform: featured ? 'scale(1.02)' : undefined,
                 boxShadow: featured ? `0 0 40px ${color}20` : undefined,
-                position: 'relative',
               }}>
                 {featured && (
-                  <div style={{
-                    position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
-                    background: 'var(--gradient-brand)', color: 'white', fontSize: 11,
-                    fontWeight: 700, padding: '3px 14px', borderRadius: 'var(--radius-full)',
-                    letterSpacing: '0.05em',
-                  }}>MOST POPULAR</div>
+                  <div className="absolute top-minus-12 left-half transform-minus-x-half bg-brand-linear color-white text-xs font-bold px-14 py-4 rounded-full tracking-wide">
+                    MOST POPULAR
+                  </div>
                 )}
-                <div style={{ color, fontSize: 32, fontWeight: 900, marginBottom: 4 }}>{price}</div>
-                <div style={{ color: 'var(--color-text-muted)', fontSize: 13, marginBottom: 16 }}>{name}{period}</div>
-                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', textAlign: 'left' }}>
+                <div className="text-3xl font-black mb-4" style={{ color }}>{price}</div>
+                <div className="color-text-muted text-xs mb-16">{name}{period}</div>
+                <ul className="list-none p-0 my-0 mb-24 text-left">
                   {features.map(f => (
-                    <li key={f} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', marginBottom: 8, fontSize: 14, color: 'var(--color-text-muted)' }}>
-                      <span style={{ color: 'var(--color-success)', flexShrink: 0 }}>✓</span>
+                    <li key={f} className="flex gap-8 items-start mb-8 text-sm color-text-muted">
+                      <span className="color-success flex-shrink-0">✓</span>
                       {f}
                     </li>
                   ))}
@@ -352,38 +299,34 @@ export default function HomePage() {
       </section>
 
       {/* ─── FINAL CTA ──────────────────────────────────────────────────── */}
-      <section style={{ padding: '80px 24px', textAlign: 'center' }}>
-        <div className="container" style={{ maxWidth: 600, margin: '0 auto' }}>
-          <h2 style={{ fontSize: 'clamp(32px, 5vw, 56px)', marginBottom: 16 }}>
+      <section className="py-80 px-24 text-center">
+        <div className="container max-w-600 mx-auto">
+          <h2 className="text-6xl mb-16">
             Ready to go <span className="gradient-text">live?</span>
           </h2>
-          <p style={{ color: 'var(--color-text-muted)', fontSize: 18, marginBottom: 40 }}>
+          <p className="color-text-muted text-lg mb-40">
             Join thousands of creators already earning more with SeeWhy LIVE.
           </p>
-          <Link href="/sign-up" className="btn btn-primary btn-lg" style={{ fontSize: 18, padding: '16px 40px' }}>
+          <Link href="/sign-up" className="btn btn-primary btn-lg text-lg px-40 py-16">
             Create Your Free Account
           </Link>
         </div>
       </section>
 
       {/* ─── FOOTER ────────────────────────────────────────────────────── */}
-      <footer style={{
-        background: 'var(--color-surface)',
-        borderTop: '1px solid var(--color-border-2)',
-        padding: '48px 24px',
-      }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+      <footer className="bg-surface border-t-brand-light py-48 px-24">
+        <div className="container flex justify-between items-center flex-wrap gap-16">
           <div>
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 18, marginBottom: 4 }}>
+            <div className="font-space-grotesk font-extrabold text-lg mb-4">
               SeeWhy <span className="gradient-text">LIVE</span>
             </div>
-            <div style={{ color: 'var(--color-text-dim)', fontSize: 13 }}>
+            <div className="color-text-dim text-xs">
               © 2026 SwanyThree EntTech. All rights reserved.
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 24 }}>
+          <div className="flex gap-24">
             {['Privacy', 'Terms', 'DMCA', 'Support'].map(l => (
-              <Link key={l} href={`/${l.toLowerCase()}`} style={{ color: 'var(--color-text-dim)', fontSize: 13, textDecoration: 'none' }}>
+              <Link key={l} href={`/${l.toLowerCase()}`} className="color-text-dim text-xs no-underline">
                 {l}
               </Link>
             ))}

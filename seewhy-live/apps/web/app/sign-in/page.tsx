@@ -43,7 +43,7 @@ export default function SignInPage() {
         {/* Logo */}
         <div className="text-center mb-40">
           <Link href="/" className="no-underline">
-            <span className="font-space-grotesk font-800 text-2xl text-color-text">
+            <span className="font-space-grotesk font-black text-2xl color-text">
               SeeWhy <span className="gradient-text">LIVE</span>
             </span>
           </Link>

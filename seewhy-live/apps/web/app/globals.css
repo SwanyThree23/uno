@@ -305,6 +305,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-link.active { color: var(--color-brand-violet); }
 
+/* Nav Scrolled State */
+.nav-scrolled {
+  background: rgba(9, 9, 18, 0.95);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+}
+
 /* Avatar */
 .avatar {
   border-radius: 50%;
@@ -397,9 +405,20 @@ h1, h2, h3, h4, h5, h6 {
 .absolute { position: absolute; }
 .fixed { position: fixed; }
 .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.top-minus-12 { top: -12px; }
+.left-half { left: 50%; }
+.transform-minus-x-half { transform: translateX(-50%); }
+.z-10 { z-index: 10; }
+.z-100 { z-index: 100; }
+.overflow-hidden { overflow: hidden; }
+.overflow-x-hidden { overflow-x-hidden; }
+.no-underline { text-decoration: none; }
+.cursor-default { cursor: default; }
+.list-none { list-style: none; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-shrink-0 { flex-shrink: 0; }
 .pointer-events-none { pointer-events: none; }
 .z-minus-1 { z-index: -1; }
-.z-10 { z-index: 10; }
 
 .gap-4 { gap: 4px; }
 .gap-8 { gap: 8px; }
@@ -422,7 +441,79 @@ h1, h2, h3, h4, h5, h6 {
 .mt-24 { margin-top: 24px; }
 
 .p-24 { padding: 24px; }
+.p-32 { padding: 32px; }
 .p-40 { padding: 40px; }
+.p-48 { padding: 48px; }
+.p-60 { padding: 60px; }
+.p-80 { padding: 80px; }
+.py-12 { padding-top: 12px; padding-bottom: 12px; }
+.py-48 { padding-top: 48px; padding-bottom: 48px; }
+.py-60 { padding-top: 60px; padding-bottom: 60px; }
+.py-80 { padding-top: 80px; padding-bottom: 80px; }
+.py-120 { padding-top: 120px; padding-bottom: 120px; }
+.px-24 { padding-left: 24px; padding-right: 24px; }
+.px-40 { padding-left: 40px; padding-right: 40px; }
+
+.m-auto { margin: 0 auto; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.my-0 { margin-top: 0; margin-bottom: 0; }
+
+.text-xs { font-size: 12px; }
+.text-sm { font-size: 14px; }
+.text-base { font-size: 16px; }
+.text-lg { font-size: 18px; }
+.text-xl { font-size: 20px; }
+.text-2xl { font-size: 24px; }
+.text-3xl { font-size: 30px; }
+.text-4xl { font-size: 36px; }
+.text-5xl { font-size: 48px; }
+.text-6xl { font-size: 60px; }
+.text-7xl { font-size: 72px; }
+.text-8xl { font-size: 80px; }
+
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+.font-black { font-weight: 900; }
+
+.leading-tight { line-height: 1.2; }
+.leading-normal { line-height: 1.6; }
+.leading-relaxed { line-height: 1.7; }
+
+.max-w-440 { max-width: 440px; }
+.max-w-500 { max-width: 500px; }
+.max-w-600 { max-width: 600px; }
+.max-w-700 { max-width: 700px; }
+.max-w-800 { max-width: 800px; }
+.max-w-900 { max-width: 900px; }
+.max-w-1200 { max-width: 1200px; }
+
+.grid { display: grid; }
+.grid-cols-3 { grid-template-columns: 1fr auto 1fr; }
+
+.bg-surface { background: var(--color-surface); }
+.bg-transparent { background: transparent; }
+.bg-brand-light { background: rgba(139, 92, 246, 0.1); }
+.bg-brand-linear { background: var(--gradient-brand); }
+.bg-transparent { background: transparent; }
+.bg-border-light { background: var(--color-border-2); }
+.bg-success-light { background: rgba(16, 185, 129, 0.1); }
+.border-success-light { border: 1px solid rgba(16, 185, 129, 0.3); }
+.border-brand-light { border: 1px solid rgba(139, 92, 246, 0.3); }
+.border-b-brand-light { border-bottom: 1px solid rgba(139, 92, 246, 0.1); }
+.border-t-brand-light { border-top: 1px solid rgba(139, 92, 246, 0.1); }
+.border-none { border: none; }
+
+.color-text { color: var(--color-text); }
+.color-text-muted { color: var(--color-text-muted); }
+.color-text-dim { color: var(--color-text-dim); }
+.color-brand-violet { color: var(--color-brand-violet); }
+.color-success { color: var(--color-success); }
+
+.font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+.font-inter { font-family: 'Inter', sans-serif; }
 
 /* ─── Feature Specific Layouts ────────────────────────────────────────────── */
 .auth-page {
@@ -444,7 +535,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .auth-card-wrap {
   width: 100%;
-  maxWidth: 440px;
+  max-width: 440px;
 }
 
 .alert-error {

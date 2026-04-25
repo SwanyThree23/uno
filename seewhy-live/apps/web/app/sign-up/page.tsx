@@ -41,7 +41,7 @@ export default function SignUpPage() {
       <div className="auth-card-wrap" style={{ maxWidth: 460 }}>
         <div className="text-center mb-40">
           <Link href="/" className="no-underline">
-            <span className="font-space-grotesk font-800 text-2xl">
+            <span className="font-space-grotesk font-black text-2xl">
               SeeWhy <span className="gradient-text">LIVE</span>
             </span>
           </Link>
@@ -52,8 +52,8 @@ export default function SignUpPage() {
 
         <div className="glass p-40 rounded-xl">
           {/* Revenue badge */}
-          <div className="flex items-center gap-8 mb-24 p-16 rounded-md" style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', color: '#10b981', fontSize: 13 }}>
-            <span style={{ fontSize: 16 }}>💰</span>
+          <div className="flex items-center gap-8 mb-24 p-16 rounded-md bg-success-light border-success-light color-success text-xs">
+            <span className="text-base">💰</span>
             <span>You&apos;ll keep <strong>90%</strong> of all revenue you earn — always</span>
           </div>
 
@@ -66,7 +66,7 @@ export default function SignUpPage() {
           )}
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-16">
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="grid grid-cols-2 gap-12">
               <div>
                 <label className="label-text">
                   Display Name
